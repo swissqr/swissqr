@@ -1,5 +1,5 @@
 FROM openjdk:alpine
-MAINTAINER Phil Schatzmann <pschatzmann@gmail.com>
+MAINTAINER <swissqr@gmail.com>
 RUN mkdir -p /usr/local/bin/swissqr
 WORKDIR /usr/local/bin/swissqr
 COPY *.* /usr/local/bin/swissqr/
