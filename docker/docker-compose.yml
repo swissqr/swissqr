@@ -1,0 +1,7 @@
+services:
+    swissqr-service:
+      image: swissqr/swissqr
+      container_name: swissqr
+      ports:
+        - "9990:9990"
+      restart: always
