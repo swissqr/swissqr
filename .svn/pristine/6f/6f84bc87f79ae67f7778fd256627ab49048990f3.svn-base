@@ -1,0 +1,12 @@
+T_TITLE Sezione pagamento QR-fattura
+T_SUPPORTS Sostiene
+T_CT Bonifico
+T_ACCOUNT Conto
+T_CREDITOR Beneficiario
+T_ULTIMATECREDITOR Beneficiario finale
+T_REF Numero di riferimento
+T_INFO Informazioni supplementari
+T_DEB Debitore
+T_DUE Da pagare entro il 
+T_CURRENCY Valuta
+T_AMOUNT Importo

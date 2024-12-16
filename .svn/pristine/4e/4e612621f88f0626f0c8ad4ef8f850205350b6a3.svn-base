@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+	<list>
+		<creditorInformation>
+			<iban>IBAN12345677</iban>
+			<creditorAddress>
+				<name>Phil Schatzmann</name>
+				<street>Stutzhaldenstrasse</street>
+				<houseNumber>3</houseNumber>
+				<postalCode>8834</postalCode>
+				<city>Schindellegi</city>
+				<countryISO>CH</countryISO>
+			</creditorAddress>
+		</creditorInformation>
+		<debitor>
+			<name>Herr Phil Schatzmann</name>
+			<street>Stutzhaldenstrasse</street>
+			<houseNumber>3</houseNumber>
+			<postalCode>8834</postalCode>
+			<city>Schindellegi</city>
+			<countryISO>CH</countryISO>
+		</debitor>
+		<paymentAmount>
+			<amount>100.1</amount>
+			<currency>CHF</currency>
+		</paymentAmount>
+		<paymentReference>
+			<referenceType>NON</referenceType>
+			<reference></reference>
+			<unstructuredMessage>Invoice no 123</unstructuredMessage>
+		</paymentReference>
+		<ultimateCreditorInformation>
+			<name></name>
+			<street></street>
+			<houseNumber></houseNumber>
+			<postalCode></postalCode>
+			<city></city>
+			<countryISO></countryISO>
+		</ultimateCreditorInformation>
+	</list>
+</root>

@@ -1,0 +1,32 @@
+<! DOCTYPE html5>
+<html>
+<body>
+	<form action="https://swissqr.ch/service/simpleswissqr/barcode" method="post" >
+		IBAN:<input  name="IBAN"  /> <br>
+		Amount:<input  name="Amount"  /> <br>
+		Currency:<input  name="Currency"  /> <br>
+		Creditor:<input  name="Creditor"  /> <br>
+		Debitor:<input  name="Debitor"  /> <br>
+		DueDate:<input  name="DueDate"  /> <br>
+		Message:<input  name="Message"  /> <br>
+		Reference:<input  name="Reference"  /> <br>
+		ReferenceType:<select name="ReferenceType">
+  			<option value="NON">NON</option>
+  			<option value="QRR">QRR</option>
+ 		 	<option value="SCOR">SCOR</option>
+		</select><br>
+		
+		UltimateCreditor:<input  name="UltimateCreditor"  /> <br>
+		Reference:<input  name="Reference"  /> <br>
+		language:<select name="language">
+  			<option value="en">en</option>
+  			<option value="de">de</option>
+ 		 	<option value="fr">fr</option>
+ 		 	<option value="it">id</option>
+		</select><br>
+		License:<input  name="licenseKey"  /> <br>
+		
+		<input type="submit" value="Get Image" name="submit">
+	</form>
+</body>
+</html>

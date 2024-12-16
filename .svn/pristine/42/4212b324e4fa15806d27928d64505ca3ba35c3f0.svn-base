@@ -1,0 +1,12 @@
+T_TITLE Section paiement QR-facture
+T_SUPPORTS Support
+T_CT Virement
+T_ACCOUNT Compte
+T_CREDITOR Bénéficiaire
+T_ULTIMATECREDITOR Bénéficiaire final
+T_REF Numéro de référence
+T_INFO Informations supplémentaires
+T_DEB Débiteur
+T_DUE À payer jusqu'au
+T_CURRENCY Monnaie
+T_AMOUNT Montant

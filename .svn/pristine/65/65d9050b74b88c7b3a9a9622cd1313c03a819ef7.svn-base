@@ -1,0 +1,2 @@
+Amount,CreditorCity,CreditorCountry,CreditorHouseNumber,CreditorName,CreditorPostalCode,CreditorStreet,Currency,DebitorCity,DebitorCountry,DebitorHouseNumber,DebitorName,DebitorPostalCode,DebitorStreet,IBAN,Message,ReferenceType,contentType
+100.1,Schindellegi,CH,3,Phil Schatzmann,8834,Stutzhaldenstrasse,CHF,Schindellegi,CH,3,Herr Phil Schatzmann,8834,Stutzhaldenstrasse,IBAN12345677,Invoice no 123,NON,ContentBarcodeCH

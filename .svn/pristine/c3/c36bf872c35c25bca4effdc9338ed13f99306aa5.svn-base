@@ -1,0 +1,99 @@
+package ch.swissqr;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Test;
+
+import ch.swissqr.content.ContentBarcodeCH;
+import ch.swissqr.paymentslip.PaymentSlipHtml;
+import ch.swissqr.paymentslip.PaymentSlipPDF;
+import ch.swissqr.pdf.Document;
+import ch.swissqr.utils.StringUtils;
+
+/**
+ * Tests for creating and scanning PDF documents
+ * 
+ * @author pschatzmann
+ *
+ */
+public class TestHtml {
+	private static Logger LOG = Logger.getLogger(TestHtml.class);
+	
+	
+	@Test
+	public void testEnHtml() throws Exception {
+		ContentBarcodeCH bc = new ContentBarcodeCH(new TestBarcode().getContent());
+		PaymentSlipHtml html = new PaymentSlipHtml(bc,"en");
+		String str = html.toString();
+		LOG.info(html);
+		
+		File file = new File("src/test/resources/generated/test-en.html");
+		FileWriter fileWriter = new FileWriter(file);
+		fileWriter.write(str);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+
+
+	@Test
+	public void testFrHtml() throws Exception {
+		ContentBarcodeCH bc = new ContentBarcodeCH(new TestBarcode().getContent());
+		PaymentSlipHtml html = new PaymentSlipHtml(bc,"fr");
+		String str = html.toString();
+		LOG.info(html);
+		
+		File file = new File("src/test/resources/generated/test-fr.html");
+		FileWriter fileWriter = new FileWriter(file);
+		fileWriter.write(str);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+	
+	@Test
+	public void testItHtml() throws Exception {
+		ContentBarcodeCH bc = new ContentBarcodeCH(new TestBarcode().getContent());
+		PaymentSlipHtml html = new PaymentSlipHtml(bc,"it");
+		String str = html.toString();
+		LOG.info(html);
+		
+		File file = new File("src/test/resources/generated/test-it.html");
+		FileWriter fileWriter = new FileWriter(file);
+		fileWriter.write(str);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+
+	@Test
+	public void testDeHtml() throws Exception {
+		ContentBarcodeCH bc = new ContentBarcodeCH(new TestBarcode().getContent());
+		PaymentSlipHtml html = new PaymentSlipHtml(bc,"de");
+		String str = html.toString();
+		LOG.info(html);
+		
+		File file = new File("src/test/resources/generated/test-de.html");
+		FileWriter fileWriter = new FileWriter(file);
+		fileWriter.write(str);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+	
+	@Test
+	public void testHtml() throws Exception {
+		ContentBarcodeCH bc = new ContentBarcodeCH(new TestBarcode().getContent());
+		String txt = StringUtils.loadResource(this.getClass(), "lormipsum.txt");
+		PaymentSlipHtml html = new PaymentSlipHtml(bc,"de",txt,"");
+		String str = html.toString();
+		LOG.info(html);
+		
+		File file = new File("src/test/resources/generated/test.html");
+		FileWriter fileWriter = new FileWriter(file);
+		fileWriter.write(str);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+}

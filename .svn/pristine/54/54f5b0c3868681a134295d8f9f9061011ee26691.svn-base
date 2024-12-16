@@ -1,0 +1,70 @@
+package ch.swissqr.paymentslip;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
+import ch.swissqr.content.ContentBarcodeCH;
+import ch.swissqr.utils.StringUtils;
+
+/**
+ * HTML Payment Slip
+ * @author pschatzmann
+ *
+ */
+
+public class PaymentSlipHtml {
+	private static final Logger LOG = Logger.getLogger(PaymentSlipHtml.class);
+	private String html = "";
+	private DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+
+	
+	public PaymentSlipHtml(ContentBarcodeCH content, String lang) throws IOException {
+		this(content,lang, "","");
+	}
+	
+	public PaymentSlipHtml(ContentBarcodeCH content, String lang, String htmlTop, String htmlLeft) throws IOException {
+		String language = lang.trim().toLowerCase();
+		if (!language.matches("de|en|fr")) {
+			LOG.info("Setting default language to english because of unsupported code: " + lang);
+			language = "en";
+		}
+		String resourceName = "language_" + lang;
+		Properties messages = StringUtils.loadProperties(resourceName);
+
+		html = StringUtils.loadResource(this.getClass(), "PaymentSlip.html");
+		messages.entrySet().stream().forEach(e -> resolveParameter(e.getKey(), e.getValue()));
+		
+		resolveParameter("INC_HTML1",htmlTop);
+		resolveParameter("INC_HTML2",htmlLeft);
+		resolveParameter("CURRENCY",content.getPaymentAmount().getCurrency());
+		resolveParameter("AMOUNT",content.getPaymentAmount().getAmountStr());
+		resolveParameter("ACCOUNT",content.getCreditorInformation().getIban());
+		resolveParameter("CREDITOR",content.getCreditorInformation().getCreditorAddress().getAddressPrinted("<br/>"));
+		resolveParameter("ULTIMATECREDITOR",content.getUltimateCreditorInformation().getAddressPrinted("<br/>"));
+		resolveParameter("REF",content.getPaymentReference().getReference());
+		resolveParameter("INFO",content.getPaymentReference().getUnstructuredMessage());
+		resolveParameter("DEB",content.getDebitor().getAddressPrinted("<br/>"));
+		resolveParameter("DUE",format(content.getPaymentAmount().getDueDate()));		
+		resolveParameter("BARCODE_CONTENT",URLEncoder.encode(content.toString(),"UTF8"));
+		
+	}
+
+	private String format(Date date) {
+		return date == null ? "" : df.format(date);
+	}
+
+	private void resolveParameter(Object key, Object value) {
+		html = html.replaceAll("\\[\\[" + key + "\\]\\]", StringUtils.str(value));
+	}
+
+	public String toString() {
+		return html;
+	}
+
+}

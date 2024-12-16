@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>[[T_TITLE]]</title>
+<style>
+table {
+	width: 100%;
+	vertical-align: top;
+}
+
+img {
+	hight: 4.6cm;
+	width: 4.6cm;
+}
+
+h1 {
+	font-size: 12pt;
+}
+
+.col2 {
+	vertical-align: top;
+	width: 7.1cm;
+	max-width: 7.1cm;
+	min-width: 7.1cm;
+}
+
+.col3 {
+	vertical-align: top;
+	max-width: 8.9cm;
+	min-width: 8.9cm;
+	width: 8.9cm;
+}
+
+.fieldname {
+	font-size: 8pt;
+}
+
+.value {
+	font-size: 10pt;
+}
+
+@media screen {
+	body {
+		font-family: arial;
+		width: 100%;
+	}
+	.col1 {
+		width: 0;
+		max-width: 0;
+		color: transparent;
+	}
+	.footer {
+		position: absolute;
+		left: 0;
+		top: 0cm;
+		width: 100%;
+		height: 10.6cm;
+		max-height: 10.6cm;
+	}
+}
+
+@page {
+  margin: 0cm;
+}
+
+@media print {
+	body {
+		font-family: arial;
+		width: 100%;
+		height: 29.5cm
+	}
+	.footer {
+		position: absolute;
+		left: 0;
+		bottom: 0cm;
+		width: 100%;
+		height: 10.6cm;
+		max-height: 10.6cm;
+	}
+	.col1 {
+		width: 6.1cm;
+		min-width: 6.1cm;
+		max-width: 6.1cm;
+		vertical-align: bottom;
+	}
+}
+
+@media print and (min-width : 14.8cm) {
+	.horizontal-line {
+		width: 100%;
+		border-top: 1px solid gray;
+	}
+	.vertical-line {
+		position: absolute;
+		left: 6.1cm;
+		height: 10.6cm;
+		top: 0cm;
+		border-left: 1px solid gray;
+	}
+}
+</style>
+
+</head>
+<body>
+	[[INC_HTML1]]
+	<div class="footer">
+		<div class="horizontal-line" />
+		<table>
+			<tr>
+				<td class="col1">[[INC_HTML2]]</td>
+
+				<td class="col2">
+					<h1>[[T_TITLE]]</h1> <br />
+					<table>
+						<tr>
+							<div class="fieldname">[[T_SUPPORTS]]</div>
+						</tr>
+						<tr>
+							<div class="value">[[T_CT]]</div>
+						</tr>
+					</table> <br /> <img
+					src="http://swissqr.ch:9990/service/barcode?content=[[BARCODE_CONTENT]]" />
+					<br />
+					<table>
+						<tr>
+							<td><div class="fieldname">[[T_CURRENCY]]</div></td>
+							<td><div class="fieldname">[[T_AMOUNT]]</div></td>
+						</tr>
+						<tr>
+							<td><div class="value">[[CURRENCY]]</div></td>
+							<td><div class="value">[[AMOUNT]]</div></td>
+						</tr>
+					</table>
+				</td>
+				<td class="col3"><br />
+					<table>
+						<tr>
+							<div class="fieldname">[[T_ACCOUNT]]</div>
+							<div class="value">[[ACCOUNT]]</div>
+							<br />
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_CREDITOR]]</div>
+							<div class="value">[[CREDITOR]]</div>
+							<br />
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_ULTIMATECREDITOR]]</div>
+							<div class="value">[[ULTIMATECREDITOR]]</div>
+							<br />
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_REF]]</div>
+							<div class="value">[[REF]]</div>
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_INFO]]</div>
+							<div class="value">[[INFO]]</div>
+							<br />
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_DEB]]</div>
+							<div class="value">[[DEB]]</div>
+						</tr>
+						<tr>
+							<div class="fieldname">[[T_DUE]]</div>
+							<div class="value">[[DUE]]</div>
+							<br />
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<div class="vertical-line" />
+	</div>
+</body>
+</html>

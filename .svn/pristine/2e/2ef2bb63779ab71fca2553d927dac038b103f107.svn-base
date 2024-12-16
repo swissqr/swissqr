@@ -1,0 +1,1473 @@
+swagger: '2.0'
+info:
+  description: REST service to generate and parse QR barcodes.
+  version: '1.1'
+  title: Swiss QR Barcodes
+schemes:
+  - https
+  - http
+basePath: /service
+tags:
+  - name: BasicService
+    description: Basic REST webservices to generate QR barcodes.
+  - name: ParserService
+    description: >-
+      Parsing of barcode image files. We support zip files, pdf files and gif,
+      jpeg and png image files.
+  - name: BulkService
+    description: REST webserivces for the bulk creation of barcodes.
+  - name: QRSimpleSwiss
+    description: >-
+      Simple REST webserivces for the processing of one single Swiss QR barcode
+      from a simple URL
+  - name: QRSimpleEU
+    description: >-
+      Simple REST webserivces for the processing of one single EU Quick Response
+      Code QR Barcode from a simple URL
+paths:
+  /basic/ping:
+    get:
+      tags:
+        - BasicService
+      summary: Test if the service is up and running.
+      description: Test if the service is up and running...
+      operationId: ping
+      produces:
+        - text/plain
+      parameters: []
+      responses:
+        '200':
+          schema:
+            type: string
+          examples:
+            PONG: null
+          description: Returns PONG
+  /basic/barcode:
+    get:
+      tags:
+        - BasicService
+      summary: Returns a barcode image for the indicated content string.
+      description: >-
+        Returns a barcode image for the indicated content string. For Swiss QRs
+        we only render the swiss cross when there are no errors
+      operationId: getBarcode
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: content
+          in: query
+          type: string
+          description: Content string that the barcode represents
+        - name: dimension
+          in: query
+          default: 46
+          type: number
+          description: Height and width in mm
+        - name: errorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: >-
+            Error correction level which defines the quality in the following
+            sequence: Low->Mediaum->Quality->High
+      responses:
+        '200':
+          description: image file with barcode
+          schema:
+            type: file
+  /basic/mail:
+    get:
+      tags:
+        - BasicService
+      summary: Mail QR barcode.
+      description: Barcode which contains an e-mail address
+      operationId: getBarcodeMail
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: mailAddress
+          in: query
+          type: string
+          required: true
+          description: e-mail address
+        - name: message
+          in: query
+          type: string
+          description: message in mail
+        - name: subject
+          in: query
+          type: string
+          description: subject title in mail
+        - name: dimension
+          in: query
+          default: 46
+          type: number
+          description: dimension of barcode in mm
+        - name: errorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: QR code error correction level
+      responses:
+        '200':
+          description: image file with barcode
+          schema:
+            type: file
+  /basic/phone:
+    get:
+      tags:
+        - BasicService
+      summary: Phone QR Barcode
+      description: Barcode which contains a telephone number
+      operationId: getBarcodePhone
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: telNo
+          in: query
+          type: string
+          required: true
+          description: telephone number
+        - name: dimension
+          in: query
+          default: 46
+          type: integer
+          description: dimension of barcode in mm
+        - name: errorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: QR code error correction level
+      responses:
+        '200':
+          description: image file with barcode
+          schema:
+            type: file
+  /basic/sms:
+    get:
+      tags:
+        - BasicService
+      summary: SMS QR Barcode
+      description: Barcode which contains a sms
+      operationId: getBarcodeSMS
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: message
+          in: query
+          type: string
+          description: message of sms
+        - name: telNo
+          in: query
+          type: string
+          required: true
+          description: telephone number
+        - name: dimension
+          in: query
+          default: 46
+          type: integer
+          description: dimension of barcode in mm
+        - name: errorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: error correction level
+      responses:
+        '200':
+          description: image file with barcode
+          schema:
+            type: file
+  /basic/vcard:
+    get:
+      tags:
+        - BasicService
+      summary: VCard Address QR Barcode
+      description: Barcode with a vcard address
+      operationId: getBarcodeVCard
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: name
+          in: query
+          type: string
+          description: name
+          required: true
+        - name: title
+          in: query
+          type: string
+          description: title
+        - name: address
+          in: query
+          type: string
+          description: address
+        - name: company
+          in: query
+          type: string
+          description: company name
+        - name: email
+          in: query
+          type: string
+          description: e-mail information
+        - name: phoneNumber
+          in: query
+          type: string
+          description: telephone number
+        - name: website
+          in: query
+          type: string
+          description: url address
+        - name: dimension
+          in: query
+          default: 46
+          type: integer
+          description: dimension of barcode in mm
+        - name: errorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: QR code error correction level
+      responses:
+        '200':
+          description: file with barcode
+          schema:
+            type: file
+  /simpleswissqr/barcode:
+    get:
+      tags:
+        - QRSimpleSwiss
+      summary: Swiss QR Barcode
+      description: >-
+        Generates a swiss QR Barcode: If the provided information has issues
+        (see check) we generate a simple QR code (w/o a swiss cross in the
+        center)
+      operationId: getBarcodeCH
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: IBAN
+          in: query
+          type: string
+          description: IBAN account code
+        - name: Amount
+          in: query
+          type: number
+          description: Amount to be payed
+        - name: Currency
+          in: query
+          type: string
+          description: '3 digit ISO code '
+        - name: Creditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted creditor address with the lines separated by ,
+            or ; or the detailed fields below
+        - name: CreditorName
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: CreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: CreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: CreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Debitor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted debitor address with the lines separated by , or
+            ; or the detailed fields below
+        - name: DebitorName
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCity
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCountry
+          in: query
+          type: string
+          description: ''
+        - name: DebitorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: DebitorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: DebitorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Message
+          in: query
+          type: string
+          description: >-
+            Additional information can be used for the scheme with message and
+            scheme with structured reference to provide additional information
+            to the biller. For the transmission of structured additional
+            information to the debtor, the details in the "creditor’s structured
+            information" section must be adhered to
+        - name: Reference
+          in: query
+          type: string
+          description: >-
+            Structured payment reference Note: The reference is either a QR
+            reference or a Creditor Reference (ISO 11649)
+        - name: ReferenceType
+          in: query
+          default: NON
+          type: string
+          enum:
+            - NON
+            - QRR
+            - SCOR
+          description: >-
+            Reference type (QR, ISO) The following codes are permitted: QRR – QR
+            reference SCOR – Creditor Reference (ISO 11649) NON – without
+            reference
+        - name: UltimateCreditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted address of the ultimate editor with the lines
+            separated by , or ; or alternativley the detaled fields below
+        - name: UltimateCreditorName
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: AlternativeSchemeParameters
+          in: query
+          type: string
+          description: Parameters and data of other supported schemes
+      responses:
+        '200':
+          description: image file with barcode
+          schema:
+            type: file
+  /simpleswissqr/check:
+    get:
+      tags:
+        - QRSimpleSwiss
+      summary: Check the completeness and correctness of the swiss barcode content.
+      description: Check the completeness and correctness of the swiss barcode content
+      operationId: checkCH
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: IBAN
+          in: query
+          type: string
+          description: IBAN account code
+        - name: Amount
+          in: query
+          type: number
+          description: Amount to be payed
+        - name: Currency
+          in: query
+          type: string
+          description: '3 digit ISO code '
+        - name: Creditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted creditor address with the lines separated by ,
+            or ; or the detailed fields below
+        - name: CreditorName
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: CreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: CreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: CreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Debitor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted debitor address with the lines separated by , or
+            ; or the detailed fields below
+        - name: DebitorName
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCity
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCountry
+          in: query
+          type: string
+          description: ''
+        - name: DebitorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: DebitorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: DebitorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Message
+          in: query
+          type: string
+          description: >-
+            Additional information can be used for the scheme with message and
+            scheme with structured reference to provide additional information
+            to the biller. For the transmission of structured additional
+            information to the debtor, the details in the "creditor’s structured
+            information" section must be adhered to
+        - name: Reference
+          in: query
+          type: string
+          description: >-
+            Structured payment reference Note: The reference is either a QR
+            reference or a Creditor Reference (ISO 11649)
+        - name: ReferenceType
+          in: query
+          default: NON
+          type: string
+          enum:
+            - NON
+            - QRR
+            - SCOR
+          description: >-
+            Reference type (QR, ISO) The following codes are permitted: QRR – QR
+            reference SCOR – Creditor Reference (ISO 11649) NON – without
+            reference
+        - name: UltimateCreditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted address of the ultimate editor with the lines
+            separated by , or ; or alternativley the detaled fields below
+        - name: UltimateCreditorName
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: AlternativeSchemeParameters
+          in: query
+          type: string
+          description: Parameters and data of other supported schemes
+      responses:
+        '200':
+          description: list with error messages
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+  /simpleswissqr/imageToText:
+    post:
+      tags:
+        - QRSimpleSwiss
+      summary: Returns the content of the barcode image file.
+      description: >-
+        Returns the content of the barcode image file. If it is a Swiss Barcode
+        we convert the content to a readable paramtername: content text format
+      operationId: imageToTextCH
+      consumes:
+        - multipart/form-data
+      produces:
+        - text/plain
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: file
+          in: formData
+          type: file
+          description: files with barcode image
+      responses:
+        '200':
+          description: barcode content as yaml text
+          schema:
+            type: string
+          examples: {}
+  /simpleswissqr/paymentslip:
+    get:
+      tags:
+        - QRSimpleSwiss
+      summary: Generates a payment slip which contains a QR barcode.
+      description: Generates a payment slip which contains a QR barcode
+      operationId: getPaymwntSlipCH
+      produces:
+        - image/png
+        - image/jpeg
+        - image/gif
+        - application/pdf
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: IBAN
+          in: query
+          type: string
+          description: IBAN account code
+        - name: Amount
+          in: query
+          type: number
+          description: Amount to be payed
+        - name: Currency
+          in: query
+          type: string
+          description: '3 digit ISO code '
+        - name: Creditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted creditor address with the lines separated by ,
+            or ; or the detailed fields below
+        - name: CreditorName
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: CreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: CreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: CreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: CreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: CreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Debitor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted debitor address with the lines separated by , or
+            ; or the detailed fields below
+        - name: DebitorName
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: DebitorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCity
+          in: query
+          type: string
+          description: ''
+        - name: DebitorCountry
+          in: query
+          type: string
+          description: ''
+        - name: DebitorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: DebitorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: DebitorStreet
+          in: query
+          type: string
+          description: ''
+        - name: Message
+          in: query
+          type: string
+          description: >-
+            Additional information can be used for the scheme with message and
+            scheme with structured reference to provide additional information
+            to the biller. For the transmission of structured additional
+            information to the debtor, the details in the "creditor’s structured
+            information" section must be adhered to
+        - name: Reference
+          in: query
+          type: string
+          description: >-
+            Structured payment reference Note: The reference is either a QR
+            reference or a Creditor Reference (ISO 11649)
+        - name: ReferenceType
+          in: query
+          default: NON
+          type: string
+          enum:
+            - NON
+            - QRR
+            - SCOR
+          description: >-
+            Reference type (QR, ISO) The following codes are permitted: QRR – QR
+            reference SCOR – Creditor Reference (ISO 11649) NON – without
+            reference
+        - name: UltimateCreditor
+          in: query
+          type: string
+          description: >-
+            Enter the formatted address of the ultimate editor with the lines
+            separated by , or ; or alternativley the detaled fields below
+        - name: UltimateCreditorName
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine1
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorAddressLine2
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCity
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorCountry
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorHouseNumber
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorPostalCode
+          in: query
+          type: string
+          description: ''
+        - name: UltimateCreditorStreet
+          in: query
+          type: string
+          description: ''
+        - name: AlternativeSchemeParameters
+          in: query
+          type: string
+          description: Parameters and data of other supported schemes
+        - name: language
+          in: query
+          default: de
+          type: string
+          enum:
+            - de
+            - en
+            - fr
+            - it
+          description: Language in which the payment stlip is printed
+        - name: pageFormat
+          in: query
+          default: A4
+          type: string
+          enum:
+            - A4
+            - A5
+            - Others
+          description: Page format for which the payment slip is generated
+        - name: printLines
+          in: query
+          default: true
+          type: boolean
+          description: >-
+            Print the perforation lines on the payment slip - if the format is
+            A4
+      responses:
+        '200':
+          description: pdf payment slip
+          schema:
+            type: file
+  /simpleeuqr/barcode:
+    get:
+      tags:
+        - QRSimpleEU
+      summary: Create a single EU Quick Response Code.
+      description: Create a single EU Quick Response Code
+      operationId: getBarcodeEU
+      produces:
+        - image/png
+        - application/json
+        - image/jpeg
+        - image/gif
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: Amount
+          in: query
+          type: number
+          description: Amount of the credit transfer w/o currency
+        - name: BIC
+          in: query
+          type: string
+          description: Bank Interchange Address
+        - name: Currency
+          in: query
+          type: string
+          description: ISO currency code
+        - name: IBAN
+          in: query
+          type: string
+          required: true
+          description: IBAN account number of the Beneficiary
+        - name: Information
+          in: query
+          type: string
+          description: Beneficiary to originator information
+        - name: Name
+          in: query
+          type: string
+          required: true
+          description: Name of tne Beneficiary
+        - name: Purpose
+          in: query
+          type: string
+          description: Purpose of the credit transfer
+        - name: RemittanceReference
+          in: query
+          type: string
+          description: Reference reference information
+        - name: RemittanceText
+          in: query
+          type: string
+          description: Remittance Information (Unstructured)
+        - name: Dimension
+          in: query
+          default: 46
+          type: integer
+          description: Dimension of barcode in mm
+        - name: ErrorCorrectionLevel
+          in: query
+          default: M
+          type: string
+          enum:
+            - H
+            - L
+            - M
+            - Q
+          description: QR code error correction level
+      responses:
+        '200':
+          description: Image file with barcode
+          schema:
+            type: file
+  /simpleeuqr/check:
+    get:
+      tags:
+        - QRSimpleEU
+      summary: Validates the correctness and completeness of the Quick Response Code.
+      description: Validates the correctness and completeness of the Quick Response Code
+      operationId: checkEU
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: Amount
+          in: query
+          type: number
+          description: Amount w/o currency
+        - name: Currency
+          in: query
+          type: string
+          description: ISO currency code
+        - name: IBAN
+          in: query
+          type: string
+          description: IBAN account number
+        - name: BIC
+          in: query
+          type: string
+          description: Bank Interchange Address
+        - name: Information
+          in: query
+          type: string
+          description: Information
+        - name: Name
+          in: query
+          type: string
+          description: Name of account hodler
+        - name: Purpose
+          in: query
+          type: string
+          description: Purpose of payment
+        - name: RemittanceReference
+          in: query
+          type: string
+          description: Reference number
+        - name: RemittanceText
+          in: query
+          type: string
+          description: Additional text
+      responses:
+        '200':
+          description: returns list with error messages
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+  /simpleeuqr/imageToText:
+    post:
+      tags:
+        - QRSimpleEU
+      summary: Returns the content of the barcode image file.
+      description: >-
+        Returns the content of the barcode image file. If it is a Swiss Barcode
+        we convert the content to a readable paramtername : content text format
+      operationId: imageToTextEU
+      consumes:
+        - multipart/form-data
+      produces:
+        - text/plain
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: file
+          in: formData
+          type: file
+          description: Files which need to be parsed
+      responses:
+        '200':
+          description: Readable text information of barcode (as yaml)
+          schema:
+            type: string
+  /parser/text:
+    post:
+      tags:
+        - ParserService
+      summary: Returns a list of strings
+      description: >-
+        Returns the raw text content of one or multiple image, pdf and zip
+        files.
+      operationId: imagesToText
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: file
+          in: formData
+          type: file
+          description: Files which contain the barcodes
+      responses:
+        '201':
+          description: List of strings containing the parsed text
+          schema:
+            type: array
+            items:
+              type: string
+  /parser/objects:
+    post:
+      tags:
+        - ParserService
+      summary: Resutns a list of objects
+      description: 'Returns the content objects of one or multiple image, pdf and zip files.'
+      operationId: imagesToObjects
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - name: file
+          in: formData
+          type: file
+          description: Files which contain the barcodes
+      responses:
+        '200':
+          description: returns list of barcode objects
+          schema:
+            type: array
+            items:
+              type: object
+  /objects/check:
+    post:
+      tags:
+        - BulkService
+      summary: Checks the completeness and correctness of the provided data.
+      description: Checks the completeness and correctness of the provided data
+      operationId: check
+      consumes:
+        - text/plain
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - in: body
+          name: status
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              description: >-
+                One of the different barcode object types (see Model). The
+                example is for Swiss QR code
+            example:
+              - contentType: ContentBarcodeCH
+                creditorInformation:
+                  iban: IB4431999123000889012
+                  creditorAddress:
+                    name: Robert Schneider AG
+                    street: Rue du Lac
+                    houseNumber: '1268/2/22'
+                    postalCode: '2501'
+                    city: Biel
+                    countryISO: CH
+                paymentAmount:
+                  amount: 100.10
+                  currency: CHF
+                paymentReference:
+                  referenceType: NON
+                  unstructuredMessage: Invoice no 123
+                debitor:
+                  name: Pia-Maria Rutschmann-Schnyder
+                  street: Grosse Marktgasse
+                  houseNumber: '28'
+                  postalCode: 'Rorschach'
+                  city: Schindellegi
+                  countryISO: CH
+      responses:
+        '200':
+          description: list with error messages
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Error'
+  /objects/barcodes:
+    post:
+      tags:
+        - BulkService
+      summary: Create one or multiple barcode images.
+      description: >-
+        We not only support the Swiss QR codes but all QR barcode types which
+        are available in the Basic Services.
+      operationId: getBarcodes
+      consumes:
+        - text/plain
+        - application/json
+      produces:
+        - application/zip
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - in: body
+          name: status
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              description: >-
+                One of the different barcode object types (see Model). The
+                example is for Swiss QR code
+            example:
+              - contentType: ContentBarcodeCH
+                creditorInformation:
+                  iban: IB4431999123000889012
+                  creditorAddress:
+                    name: Robert Schneider AG
+                    street: Rue du Lac
+                    houseNumber: '1268/2/22'
+                    postalCode: '2501'
+                    city: Biel
+                    countryISO: CH
+                paymentAmount:
+                  amount: 100.10
+                  currency: CHF
+                paymentReference:
+                  referenceType: NON
+                  unstructuredMessage: Invoice no 123
+                debitor:
+                  name: Pia-Maria Rutschmann-Schnyder
+                  street: Grosse Marktgasse
+                  houseNumber: '28'
+                  postalCode: 'Rorschach'
+                  city: Schindellegi
+                  countryISO: CH
+      responses:
+        '200':
+          description: zip with barcode images
+          schema:
+            type: file
+  /objects/paymentslips:
+    post:
+      tags:
+        - BulkService
+      summary: Get one or multiple payment slip images.
+      description: >-
+        Get one or multiple payment slip images. Additional control information
+        can be passed as properties in the barcode object
+      operationId: getPaymentSlips
+      consumes:
+        - text/plain
+        - application/json
+      produces:
+        - application/zip
+      parameters:
+        - in: header
+          name: licenseKey
+          description: purchased license key
+          type: string
+        - in: body
+          name: status
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              description: >-
+                One of the different barcode object types (see Model). The
+                example is for Swiss QR code
+            example:
+              - contentType: ContentBarcodeCH
+                creditorInformation:
+                  iban: IBAN12345677
+                  creditorAddress:
+                    name: Phil Schatzmann
+                    street: Stutzhaldenstrasse
+                    houseNumber: '3'
+                    postalCode: '8834'
+                    city: Schindellegi
+                    countryISO: CH
+                paymentAmount:
+                  amount: 100.1
+                  currency: CHF
+                paymentReference:
+                  referenceType: NON
+                  unstructuredMessage: Invoice no 123
+                debitor:
+                  name: Herr Phil Schatzmann
+                  street: Stutzhaldenstrasse
+                  houseNumber: '3'
+                  postalCode: '8834'
+                  city: Schindellegi
+                  countryISO: CH
+      responses:
+        '200':
+          description: zip with all payment slips
+          schema:
+            type: file
+definitions:
+  Address:
+    type: object
+    title: Address
+    properties:
+      name:
+        description: ''
+        type: string
+      street:
+        description: ''
+        type: string
+      houseNumber:
+        description: ''
+        type: string
+      postalCode:
+        description: ''
+        type: string
+      city:
+        description: ''
+        type: string
+      countryISO:
+        description: ''
+        type: string
+    example:
+      name: ...
+      street: ...
+      houseNumber: ...
+      postalCode: ...
+      city: ...
+      countryISO: ...
+    description: 'Address information for Creditor, Ultimate creditor and Ultimate debtor'
+  AlternativeSchema:
+    type: object
+    title: AlternativeSchema
+    properties:
+      schemaValue:
+        description: ''
+        type: string
+      code:
+        description: ''
+        type: string
+      delimiter:
+        description: ''
+        type: string
+    example:
+      schemaValue: ...
+      code: ...
+      delimiter: ...
+    description: >-
+      Alternative schemes Parameters and data of other supported
+      schemes.Optional
+
+      data group with a variable number of elements
+  ContentBarcodeCH:
+    type: object
+    title: ContentBarcodeCH
+    properties:
+      creditorInformation:
+        description: Returns the creditor information section
+        $ref: '#/definitions/CreditorInformation'
+      paymentAmount:
+        description: Returns the payment amount section
+        $ref: '#/definitions/PaymentAmount'
+      debitor:
+        description: Returns the debitor section
+        $ref: '#/definitions/Address'
+      paymentReference:
+        description: Returns the payment reference section
+        $ref: '#/definitions/PaymentReference'
+      alternativeSchema:
+        description: Returns the alternative schemas
+        type: array
+        items:
+          $ref: '#/definitions/AlternativeSchema'
+      ultimateCreditorInformation:
+        description: Returns the creditor information address section
+        $ref: '#/definitions/Address'
+    example:
+      creditorInformation:
+        iban: ...
+        creditorAddress:
+          name: ...
+          street: ...
+          houseNumber: ...
+          postalCode: ...
+          city: ...
+          countryISO: ...
+      paymentAmount:
+        amount: 12345
+        currency: ...
+        dueDate: 12345
+      debitor:
+        name: ...
+        street: ...
+        houseNumber: ...
+        postalCode: ...
+        city: ...
+        countryISO: ...
+      paymentReference:
+        referenceType: QRR
+        reference: ...
+        unstructuredMessage: ...
+      alternativeSchema:
+        - schemaValue: ...
+          code: ...
+          delimiter: ...
+        - schemaValue: ...
+          code: ...
+          delimiter: ...
+      ultimateCreditorInformation:
+        name: ...
+        street: ...
+        houseNumber: ...
+        postalCode: ...
+        city: ...
+        countryISO: ...
+    description: >-
+      Payload Information which is needed to generate a Swiss QR barcode. We
+      provide the the functionality to construct a payload and validate the
+      provided input. See
+      https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-en.pdf Please
+      note that the content must be rendered in ISO-8859-1
+  CreditorInformation:
+    type: object
+    title: CreditorInformation
+    properties:
+      iban:
+        description: ''
+        type: string
+      creditorAddress:
+        description: ''
+        $ref: '#/definitions/Address'
+    example:
+      iban: ...
+      creditorAddress:
+        name: ...
+        street: ...
+        houseNumber: ...
+        postalCode: ...
+        city: ...
+        countryISO: ...
+    description: Creditor information section of swiss barcode payload
+  Error:
+    type: object
+    title: Error
+    properties:
+      fileName:
+        description: ''
+        type: string
+      fieldName:
+        description: ''
+        type: string
+      message:
+        description: ''
+        type: string
+    example:
+      fileName: ...
+      fieldName: ...
+      message: ...
+    description: Result of data validation
+  PaymentAmount:
+    type: object
+    title: PaymentAmount
+    properties:
+      amount:
+        description: ''
+        type: number
+      currency:
+        description: ''
+        type: string
+      dueDate:
+        description: ''
+        type: number
+    example:
+      amount: 12345
+      currency: ...
+      dueDate: 12345
+    description: Payment amout section of swiss barcode payload
+  PaymentReference:
+    type: object
+    title: PaymentReference
+    properties:
+      referenceType:
+        description: ''
+        $ref: '#/definitions/RefernceType'
+      reference:
+        description: ''
+        type: string
+      unstructuredMessage:
+        description: ''
+        type: string
+    example:
+      referenceType: QRR
+      reference: ...
+      unstructuredMessage: ...
+    description: Payment reference section of swiss barcode payload
+  RefernceType:
+    type: string
+    title: RefernceType
+    enum:
+      - QRR
+      - SCOR
+      - NON
+    description: ''

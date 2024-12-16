@@ -1,0 +1,215 @@
+package ch.swissqr.content.ch;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ch.swissqr.utils.Error;
+import ch.swissqr.utils.StringUtils;
+
+/**
+ * Address information for Creditor, Ultimate creditor and Ultimate debtor
+ * 
+ * @author pschatzmann
+ *
+ */
+
+
+public class Address {
+	private static Map<String, String> countries = new HashMap<String, String>();
+	private String name = "";
+	private String street = "";
+	private String houseNumber = "";
+	private String postalCode = "";
+	private String city = "";
+	private String countryISO = "";
+
+	public Address() {
+	}
+
+	public Address(String addressString) {
+		this.setAddressPrinted(addressString);
+	}
+
+	public Address(String name, String postalCode, String city, String country) {
+		this.name = name;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.countryISO = country.length()==2 ? country : AddressParser.getCountryMap().get(country.toLowerCase());;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Address name(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public Address street(String street) {
+		this.street = street;
+		return this;
+	}
+
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+
+	public Address houseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+		return this;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public Address postalCode(String postalCode) {
+		this.postalCode = postalCode;
+		return this;
+	}
+
+	public String getCountryISO() {
+		return StringUtils.str(countryISO);
+	}
+
+	public Address countryISO(String countryISO) {
+		this.countryISO = countryISO;
+		return this;
+	}
+
+	public Address country(String country) {
+		this.countryISO = country.length()==2 ? country : AddressParser.getCountryMap().get(country.toLowerCase());;
+		return this;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public Address city(String city) {
+		this.city = city;
+		return this;
+	}
+
+	public List<Error> check(String addressType) {
+		List<Error> result = new ArrayList();
+		StringUtils.check(addressType + "Name", true, 70, name, result);
+		StringUtils.check(addressType + "Street", false, 70, street, result);
+		StringUtils.check(addressType + "HouseNumber", false, 16, houseNumber, result);
+		StringUtils.check(addressType + "PostalCode", true, 16, postalCode, result);
+		StringUtils.check(addressType + "City", true, 35, city, result);
+		return result;
+	}
+
+	@JsonIgnore
+	public boolean isDefined() {
+		return !StringUtils.isEmpty(this.name);
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(StringUtils.str(name));
+		sb.append(StringUtils.CRLF);
+		sb.append(StringUtils.str(street));
+		sb.append(StringUtils.CRLF);
+		sb.append(StringUtils.str(houseNumber));
+		sb.append(StringUtils.CRLF);
+		sb.append(StringUtils.str(postalCode));
+		sb.append(StringUtils.CRLF);
+		sb.append(StringUtils.str(city));
+		sb.append(StringUtils.CRLF);
+		sb.append(StringUtils.isEmpty(name) ? "" : StringUtils.str(countryISO));
+		sb.append(StringUtils.CRLF);
+		return sb.toString();
+	}
+
+	public String toStringExt(String prefix) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(prefix + "Name: ");
+		sb.append(StringUtils.str(name));
+		sb.append(StringUtils.CRLF);
+		sb.append(prefix + "Street: ");
+		sb.append(StringUtils.str(street));
+		sb.append(StringUtils.CRLF);
+		sb.append(prefix + "HouseNumber: ");
+		sb.append(StringUtils.str(houseNumber));
+		sb.append(StringUtils.CRLF);
+		sb.append(prefix + "PostalCode: ");
+		sb.append(StringUtils.str(postalCode));
+		sb.append(StringUtils.CRLF);
+		sb.append(prefix + "City: ");
+		sb.append(StringUtils.str(city));
+		sb.append(StringUtils.CRLF);
+		sb.append(prefix + "Country: ");
+		sb.append(StringUtils.str(countryISO));
+		sb.append(StringUtils.CRLF);
+		return sb.toString();
+	}
+
+	public void setAddressPrinted(String str) {
+		new AddressParser().parse(str, this);
+	}
+
+	@JsonIgnore
+	public String getAddressPrinted() {
+		return getAddressPrinted(StringUtils.CRLF);
+	}
+
+	@JsonIgnore
+	public String[] getAddressLines() {
+		return getAddressPrinted(System.lineSeparator()).split(System.lineSeparator());
+	}
+
+	public String getAddressPrinted(String delim) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(StringUtils.str(name));
+		sb.append(delim);
+		sb.append(StringUtils.str(street));
+		sb.append(" ");
+		sb.append(StringUtils.str(houseNumber));
+		sb.append(delim);
+		if (!StringUtils.isEmpty(countryISO)) {
+			sb.append(StringUtils.str(countryISO));
+			sb.append("-");
+		}
+		sb.append(StringUtils.str(postalCode));
+		sb.append(" ");
+		sb.append(StringUtils.str(city));
+		return sb.toString();
+	}
+	
+	/**
+	 * Creates an address from a formatted address string
+	 * @param formattedAddress
+	 * @return
+	 */
+	public static Address createAddress(String formattedAddress) {
+		Address result = new Address();
+		result.setAddressPrinted(formattedAddress);
+		return result;
+	}
+
+	public static Address createAddress(List<String> swissQRAddress) {
+		StringBuffer sb = new StringBuffer();
+		for (String line : swissQRAddress) {
+			sb.append(line);
+			sb.append(System.lineSeparator());
+		}
+		return createAddress(sb.toString());
+	}
+
+}

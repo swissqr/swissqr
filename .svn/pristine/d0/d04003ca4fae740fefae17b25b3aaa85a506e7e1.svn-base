@@ -1,0 +1,10 @@
+
+
+1.01 Snapshot
+- Error Correction in Address Completness Check
+- License Field can be empty in Docker Product
+- Log missing fields in Completness check 
+- Version 2.1
+
+1.00
+- Initial Release

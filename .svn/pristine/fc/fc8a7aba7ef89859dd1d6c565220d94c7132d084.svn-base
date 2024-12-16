@@ -1,0 +1,12 @@
+T_TITLE Zahlteil QR-Rechnung
+T_SUPPORTS Unterstützt
+T_CT Überweisung
+T_ACCOUNT Konto
+T_CREDITOR Zahlungsempfänger
+T_ULTIMATECREDITOR Endgültiger Zahlungsempfänger
+T_REF Referenznummer
+T_INFO Zusätzliche Informationen
+T_DEB Zahlungspflichtiger
+T_DUE Zahlbar bis
+T_CURRENCY Währung
+T_AMOUNT Betrag

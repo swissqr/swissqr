@@ -1,0 +1,21 @@
+1.05-SNAPSHOT
+- Correct Manifest main method in POM
+1.04 / 1.04-SNAPSHOT
+- A4 pdf format correction
+- Correct A5 and A6 sizes
+1.03
+- A4 pdf format correction
+1.02 
+- Upgrade to JVM14
+- Upgrade to log4j 2.17.2
+- License only valid for orders in status completedd
+1.01 Snapshot
+- printLines had no effect: Now it is working
+- Indicate UTF-8 in Barcode generation
+- Error Correction in Address Completness Check
+- License Field can be empty in Docker Product
+- Log missing fields in Completness check 
+- Version 2.1
+
+1.00
+- Initial Release

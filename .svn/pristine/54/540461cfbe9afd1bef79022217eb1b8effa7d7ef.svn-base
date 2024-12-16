@@ -1,0 +1,12 @@
+T_TITLE QR-bill payment part
+T_SUPPORTS Supports
+T_CT Credit transfer
+T_ACCOUNT Account
+T_CREDITOR Creditor
+T_ULTIMATECREDITOR Ultimate creditor
+T_REF Reference number
+T_INFO Additional information
+T_DEB Debitor
+T_DUE Due date
+T_CURRENCY Currency
+T_AMOUNT Amount
