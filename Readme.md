@@ -2,9 +2,9 @@
 
 With this Open Source Solution
 
-- You can easily process SwissQR barcodes via a REST interface.
-- Process SwissQR barcodes with a Java library
-- Process other Barcode Types
+- You can easily process __SwissQR__ barcodes via a __REST interface__.
+- Process SwissQR barcodes with a __Java library__
+- Generate other __Barcode Types__ (Mail, Phone, SMS, VCard)
 
 We have tested access with different programming languages ​​and documented it for you.
 
