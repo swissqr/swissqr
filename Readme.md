@@ -10,5 +10,6 @@ We have tested access with different programming languages ​​and documented 
 
 ### Documentation
 
+- [User Documentation](https://github.com/swissqr/swissqr/wiki)
 - [Java API](https://swissqr.github.io/swissqr/doc/index.html)
 - [Webservice](https://swissqr.ch/docs/)
