@@ -1,0 +1,11 @@
+ch.swissqr.barcode
+ch.swissqr.content
+ch.swissqr.content.ch
+ch.swissqr.content.ch.formats
+ch.swissqr.errors
+ch.swissqr.paymentslip
+ch.swissqr.pdf
+ch.swissqr.pdf.parsing
+ch.swissqr.service.web
+ch.swissqr.service.web.usage
+ch.swissqr.utils
