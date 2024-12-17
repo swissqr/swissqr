@@ -4,4 +4,3 @@ target/
 .project
 .vscode/
 .DS_Store
-src/test/resources/
