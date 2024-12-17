@@ -30,9 +30,8 @@ import ezvcard.property.Url;
 
 /**
  * QR barcode which contains a VCARD address information
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 // BEGIN:VCARD
 // VERSION:4.0
@@ -58,23 +57,38 @@ public class ContentVCard extends ContentBase implements IContent {
 	private static final Logger LOG = Logger.getLogger(ContentVCard.class);
 	private VCard vcard;
 
+	/**
+	 * <p>Constructor for ContentVCard.</p>
+	 */
 	public ContentVCard() {
 		vcard = new VCard();
 	}
 
+	/**
+	 * <p>Constructor for ContentVCard.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 */
 	public ContentVCard(String str) {
 		parse(str);
 	}
 
+	/**
+	 * <p>Constructor for ContentVCard.</p>
+	 *
+	 * @param vcardPar a {@link ezvcard.VCard} object
+	 */
 	public ContentVCard(VCard vcardPar) {
 		this.vcard = vcardPar;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isOK() {
 		return true;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getContent() throws UnsupportedEncodingException {
 		String content = Ezvcard.write(vcard).version(VCardVersion.V3_0).go();
@@ -83,6 +97,7 @@ public class ContentVCard extends ContentBase implements IContent {
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IContent parse(String str) {
 		vcard = Ezvcard.parse(str).first();
@@ -98,29 +113,34 @@ public class ContentVCard extends ContentBase implements IContent {
 	// this.vcard = vcard;
 	// }
 
+	/** {@inheritDoc} */
 	@Override
 	public void clean() {
 		vcard = new VCard();
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Error> check() {
 		return Arrays.asList();
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Properties getProperties() {
 		return new Properties();
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Collection<String> getPrefix() {
 		return Arrays.asList("BEGIN:VCARD");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@JsonIgnore
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel)
@@ -129,6 +149,7 @@ public class ContentVCard extends ContentBase implements IContent {
 		return barcode.createImage(this.getContent(), format);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String, Object> record) {
 		super.setDataMap(record);
@@ -142,6 +163,7 @@ public class ContentVCard extends ContentBase implements IContent {
 		this.setAddress(StringUtils.str(record.get("address")));
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Map<String, Object> getDataMap() {
@@ -161,18 +183,38 @@ public class ContentVCard extends ContentBase implements IContent {
 		}
 	}
 
+	/**
+	 * <p>setFormattedName.</p>
+	 *
+	 * @param name a {@link java.lang.String} object
+	 */
 	public void setFormattedName(String name) {
 		this.vcard.setFormattedName(name);
 	}
 
+	/**
+	 * <p>getFormattedName.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getFormattedName() {
 		return this.vcard.getFormattedName().getValue();
 	}
 
+	/**
+	 * <p>setOrganization.</p>
+	 *
+	 * @param company a {@link java.lang.String} object
+	 */
 	public void setOrganization(String company) {
 		this.vcard.setOrganization(company);
 	}
 
+	/**
+	 * <p>getOrganization.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getOrganization() {
 		if (this.vcard.getOrganization() != null) {
 			for (String org : this.vcard.getOrganization().getValues()) {
@@ -182,10 +224,20 @@ public class ContentVCard extends ContentBase implements IContent {
 		return "";
 	}
 
+	/**
+	 * <p>setEmail.</p>
+	 *
+	 * @param email a {@link java.lang.String} object
+	 */
 	public void setEmail(String email) {
 		this.vcard.addEmail(email);
 	}
 
+	/**
+	 * <p>getEmail.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getEmail() {
 		for (Email mail : this.vcard.getEmails()) {
 			return mail.getValue();
@@ -193,10 +245,20 @@ public class ContentVCard extends ContentBase implements IContent {
 		return "";
 	}
 
+	/**
+	 * <p>setTelephoneNumber.</p>
+	 *
+	 * @param phoneNumber a {@link java.lang.String} object
+	 */
 	public void setTelephoneNumber(String phoneNumber) {
 		this.vcard.addTelephoneNumber(phoneNumber);
 	}
 
+	/**
+	 * <p>getTelephoneNumber.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getTelephoneNumber() {
 		for (Telephone tel : this.vcard.getTelephoneNumbers()) {
 			return tel.getText();
@@ -204,10 +266,20 @@ public class ContentVCard extends ContentBase implements IContent {
 		return "";
 	}
 
+	/**
+	 * <p>setTitle.</p>
+	 *
+	 * @param title a {@link java.lang.String} object
+	 */
 	public void setTitle(String title) {
 		this.vcard.addTitle(title);
 	}
 
+	/**
+	 * <p>getTitle.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getTitle() {
 		for (Title title : this.vcard.getTitles()) {
 			return title.getValue();
@@ -215,10 +287,20 @@ public class ContentVCard extends ContentBase implements IContent {
 		return "";
 	}
 
+	/**
+	 * <p>setUrl.</p>
+	 *
+	 * @param url a {@link java.lang.String} object
+	 */
 	public void setUrl(String url) {
 		this.vcard.addUrl(url);
 	}
 
+	/**
+	 * <p>getUrl.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getUrl() {
 		for (Url url : this.vcard.getUrls()) {
 			return url.getValue();
@@ -226,6 +308,11 @@ public class ContentVCard extends ContentBase implements IContent {
 		return "";
 	}
 
+	/**
+	 * <p>setAddress.</p>
+	 *
+	 * @param address a {@link java.lang.String} object
+	 */
 	public void setAddress(String address) {
 		Address adr = new Address();
 		adr.setStreetAddress(address);
@@ -233,6 +320,11 @@ public class ContentVCard extends ContentBase implements IContent {
 		this.vcard.addAddress(adr);
 	}
 
+	/**
+	 * <p>getAddress.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getAddress() {
 		for (Address a : this.vcard.getAddresses()) {
 			return a.getStreetAddressFull();

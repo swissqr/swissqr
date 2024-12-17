@@ -23,14 +23,13 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Convert CSV content to List of BarcodeContentCH
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class CSVFormat implements IFormat {
 	private static final Logger LOG = Logger.getLogger(CSVFormat.class);
 
+	/** {@inheritDoc} */
 	@Override
 	public String write(List<IContent> list) throws FormatException {
 		try {
@@ -68,6 +67,7 @@ public class CSVFormat implements IFormat {
 		return keys;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<IContent> read(String csv) throws FormatException, IOException, ParseException {
 		List<IContent> result = new ArrayList();

@@ -10,9 +10,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Payment reference section of swiss barcode payload
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class PaymentReference {
 	public enum ReferenceType {
@@ -24,46 +23,99 @@ public class PaymentReference {
 	private String unstructuredMessage = "";
 	private String billInformation;
 
+	/**
+	 * <p>Constructor for PaymentReference.</p>
+	 */
 	public PaymentReference() {
 	}
 
+	/**
+	 * <p>Constructor for PaymentReference.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 */
 	public PaymentReference(String msg) {
 		this.unstructuredMessage = msg;
 	}
 
+	/**
+	 * <p>Constructor for PaymentReference.</p>
+	 *
+	 * @param referenceType a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 * @param ref a {@link java.lang.String} object
+	 * @param msg a {@link java.lang.String} object
+	 */
 	public PaymentReference(ReferenceType referenceType, String ref, String msg) {
 		this.referenceType = referenceType;
 		this.reference = ref;
 		this.unstructuredMessage = msg;
 	}
 
+	/**
+	 * <p>Getter for the field <code>referenceType</code>.</p>
+	 *
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 */
 	public ReferenceType getReferenceType() {
 		return referenceType;
 	}
 
+	/**
+	 * <p>referenceType.</p>
+	 *
+	 * @param referenceType a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference} object
+	 */
 	public PaymentReference referenceType(ReferenceType referenceType) {
 		this.referenceType = referenceType;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>reference</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getReference() {
 		return reference;
 	}
 
+	/**
+	 * <p>reference.</p>
+	 *
+	 * @param reference a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference} object
+	 */
 	public PaymentReference reference(String reference) {
 		this.reference = reference;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>unstructuredMessage</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getUnstructuredMessage() {
 		return unstructuredMessage;
 	}
 
+	/**
+	 * <p>unstructuredMessage.</p>
+	 *
+	 * @param unstructuredMessage a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference} object
+	 */
 	public PaymentReference unstructuredMessage(String unstructuredMessage) {
 		this.unstructuredMessage = unstructuredMessage;
 		return this;
 	}
 
+	/**
+	 * <p>check.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<Error> check() {
 		List<Error> result = new ArrayList();
 		StringUtils.check("referenceType", true, Arrays.asList("QRR", "SCOR", "NON"), referenceType.name(), result);
@@ -76,10 +128,21 @@ public class PaymentReference {
 		return result;
 	}
 
+	/**
+	 * <p>Getter for the field <code>billInformation</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getBillInformation() {
 		return billInformation;
 	}
 
+	/**
+	 * <p>billInformation.</p>
+	 *
+	 * @param billInformation a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference} object
+	 */
 	public PaymentReference billInformation(String billInformation) {
 		this.billInformation = billInformation;
 		return this;
@@ -87,13 +150,14 @@ public class PaymentReference {
 
 	/**
 	 * End Payment Data)
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getTrailer() {
 		return "EPD";
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -111,6 +175,11 @@ public class PaymentReference {
 		return sb.toString();
 	}
 	
+	/**
+	 * <p>hasBillInformation.</p>
+	 *
+	 * @return a {@link java.lang.Boolean} object
+	 */
 	public Boolean hasBillInformation() {
 		return !StringUtils.isEmpty(this.getBillInformation());
 	}
@@ -119,6 +188,11 @@ public class PaymentReference {
 		return obj == null ? "" : obj.toString();
 	}
 
+	/**
+	 * <p>toStringExt.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String toStringExt() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("ReferenceType: ");
@@ -135,8 +209,8 @@ public class PaymentReference {
 
 	/**
 	 * Defines how the reference number should be printed / grouped.
-	 * 
-	 * @return
+	 *
+	 * @return a int
 	 */
 	protected int getGroupingLength() {
 		switch (this.getReferenceType()) {
@@ -151,8 +225,8 @@ public class PaymentReference {
 
 	/**
 	 * Defines if the remaining numbers are left or right
-	 * 
-	 * @return
+	 *
+	 * @return a boolean
 	 */
 	protected boolean isGroupingLeft() {
 		switch (this.getReferenceType()) {
@@ -166,8 +240,8 @@ public class PaymentReference {
 	/**
 	 * Returns the reference number formatted for printing with the relevant
 	 * groupings.
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getReferenceFormatted() {
 		String result = "";

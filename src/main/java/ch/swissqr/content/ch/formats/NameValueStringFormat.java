@@ -12,13 +12,14 @@ import ch.swissqr.content.IContent;
 
 /**
  * Wriging of string of the format fieldName:fieldContent
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class NameValueStringFormat implements IFormat {
+	/** Constant <code>CRLF="System.lineSeparator()"</code> */
 	final static public String CRLF = System.lineSeparator(); // "\\r\\n";
 
+	/** {@inheritDoc} */
 	@Override
 	public String write(List<IContent> list) throws FormatException {
 		StringBuffer sb = new StringBuffer();
@@ -34,6 +35,7 @@ public class NameValueStringFormat implements IFormat {
 		return sb.toString();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<IContent> read(String string) throws FormatException, ParseException {
 		List<IContent> result = new ArrayList();

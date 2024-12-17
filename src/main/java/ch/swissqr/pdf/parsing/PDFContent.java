@@ -12,18 +12,24 @@ import org.apache.pdfbox.text.TextPosition;
 
 /**
  * PDFTextStripper which records the position of the text. The result is returned as list of Text objects
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class PDFContent extends PDFTextStripper {
 	private List<Text> text = new ArrayList();
 
+	/**
+	 * <p>Constructor for PDFContent.</p>
+	 *
+	 * @throws java.io.IOException if any.
+	 */
 	public PDFContent() throws IOException {
 		super();
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Override the default functionality of PDFTextStripper.writeString()
 	 */
 	@Override
@@ -51,6 +57,12 @@ public class PDFContent extends PDFTextStripper {
 
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param doc a {@link org.apache.pdfbox.pdmodel.PDDocument} object
+	 * @throws java.io.IOException if any.
+	 */
 	public void parse(PDDocument doc) throws IOException {
 		text.clear();
 		StringWriter outputStream = new StringWriter();
@@ -58,10 +70,22 @@ public class PDFContent extends PDFTextStripper {
 		Collections.sort(text);
 	}
 	
+	/**
+	 * <p>getContent.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<Text> getContent()  {
 		return text;
 	}
 	
+	/**
+	 * <p>getContent.</p>
+	 *
+	 * @param doc a {@link org.apache.pdfbox.pdmodel.PDDocument} object
+	 * @return a {@link java.util.List} object
+	 * @throws java.io.IOException if any.
+	 */
 	public List<Text> getContent(PDDocument doc) throws IOException {
 		parse(doc);
 		return text;

@@ -39,16 +39,18 @@ import ch.swissqr.barcode.ErrorCorrectionLevel;
  * Payload Information which is needed to generate a Swiss QR barcode. We
  * provide the the functionality to construct a payload and validate the
  * provided input. See https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-en.pdf
- * 
- * Please note that the content must be rendered in UTF-8
- * 
- * @author pschatzmann
  *
+ * Please note that the content must be rendered in UTF-8
+ *
+ * @author pschatzmann
  */
 public class ContentBarcodeCH implements IContent {
 	private static final Logger LOG = Logger.getLogger(ContentBarcodeCH.class);
+	/** Constant <code>QR_TYPE="SPC"</code> */
 	public final static String QR_TYPE = "SPC";
+	/** Constant <code>VERSION="0200"</code> */
 	public final static String VERSION = "0200";
+	/** Constant <code>CODING_TYPE="1"</code> */
 	public final static String CODING_TYPE = "1";
 	private CreditorInformation creditorInformation = new CreditorInformation();
 	private Address ultimateCreditor = new Address();
@@ -67,14 +69,17 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Create barcode based on scanned text input
-	 * @param content
-	 * @throws FormatException
+	 *
+	 * @param content a {@link java.lang.String} object
+	 * @throws ch.swissqr.errors.BarcodeException if any.
 	 */
 	public ContentBarcodeCH(String content) throws BarcodeException {
 		parse(content);
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Fills the barcode based on a scanned barcode content
 	 */
 	@Override
@@ -84,9 +89,10 @@ public class ContentBarcodeCH implements IContent {
 		return result;
 	}
 
-	/** 
+	/**
 	 * Returns the barcode header information section
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getHeader() {
@@ -102,7 +108,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the creditor information section
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.CreditorInformation} object
 	 */
 	@XmlElement
 	public CreditorInformation getCreditorInformation() {
@@ -111,7 +118,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the payment amount section
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.PaymentAmount} object
 	 */
 	@XmlElement
 	public PaymentAmount getPaymentAmount() {
@@ -120,7 +128,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the debitor section
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	@XmlElement
 	public Address getDebitor() {
@@ -129,7 +138,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the payment reference section
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.PaymentReference} object
 	 */
 	@XmlElement
 	public PaymentReference getPaymentReference() {
@@ -138,7 +148,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the alternative schemas
-	 * @return
+	 *
+	 * @return a {@link java.util.List} object
 	 */
 	@XmlElement
 	public List<IAlternativeSchema> getAlternativeSchema() {
@@ -147,7 +158,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Returns the creditor information address section
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	@XmlElement
 	public Address getUltimateCreditor() {
@@ -155,6 +167,8 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Determines if the information is complete and correct
 	 */
 	@Override
@@ -184,8 +198,9 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Defines the creditor information
-	 * @param ci
-	 * @return
+	 *
+	 * @param ci a {@link ch.swissqr.content.ch.CreditorInformation} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH creditor(CreditorInformation ci) {
 		this.creditorInformation = ci;
@@ -194,8 +209,9 @@ public class ContentBarcodeCH implements IContent {
 	
 	/**
 	 * Defines the ultimate creditor
-	 * @param adr
-	 * @return
+	 *
+	 * @param adr a {@link ch.swissqr.content.ch.Address} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH ultimateCreditor(Address adr) {
 		this.ultimateCreditor = adr;
@@ -204,8 +220,9 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Defines the payment amount
-	 * @param pa
-	 * @return
+	 *
+	 * @param pa a {@link ch.swissqr.content.ch.PaymentAmount} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH paymentAmount(PaymentAmount pa) {
 		this.paymentAmount = pa;
@@ -213,9 +230,10 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
-	 * Defines the debitor 
-	 * @param adr
-	 * @return
+	 * Defines the debitor
+	 *
+	 * @param adr a {@link ch.swissqr.content.ch.Address} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH debitor(Address adr) {
 		this.debitor = adr;
@@ -224,8 +242,9 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Defines the payment reference
-	 * @param pr
-	 * @return
+	 *
+	 * @param pr a {@link ch.swissqr.content.ch.PaymentReference} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH paymentReference(PaymentReference pr) {
 		this.paymentReference = pr;
@@ -234,8 +253,9 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * adds multiple alternative schema s
-	 * @param as
-	 * @return
+	 *
+	 * @param as a {@link java.util.List} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH alternativeSchema(List<IAlternativeSchema> as) {
 		this.alternativeSchema = as;
@@ -245,8 +265,9 @@ public class ContentBarcodeCH implements IContent {
 	/**
 	 * adds a new alternative schema (as string). This method is not recommended
 	 * because it tries to automatically split up the string into a title and the content
-	 * @param as
-	 * @return
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH alternativeSchema(String str) {
 		this.alternativeSchema.add(new AlternativeSchema(str));
@@ -255,8 +276,10 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * adds a new alternative schema (as string)
-	 * @param as
-	 * @return
+	 *
+	 * @param title a {@link java.lang.String} object
+	 * @param parameters a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH alternativeSchema(String title, String parameters) {
 		this.alternativeSchema.add(new AlternativeSchema(title, parameters));
@@ -265,8 +288,9 @@ public class ContentBarcodeCH implements IContent {
 	
 	/**
 	 * Adds one alternative schema
-	 * @param as
-	 * @return
+	 *
+	 * @param as a {@link ch.swissqr.content.ch.IAlternativeSchema} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public ContentBarcodeCH alternativeSchema(IAlternativeSchema as) {
 		this.alternativeSchema.add(as);
@@ -274,7 +298,9 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
-	 * Returns the barcode content 
+	 * {@inheritDoc}
+	 *
+	 * Returns the barcode content
 	 */
 	@Override
 	public String toString() {
@@ -282,10 +308,9 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Provides the content in UTF-8
-	 * 
-	 * @return
-	 * @throws UnsupportedEncodingException
 	 */
 	@Override
 	@JsonIgnore
@@ -297,7 +322,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Setter to define the CreditorInformation
-	 * @param creditorInformation
+	 *
+	 * @param creditorInformation a {@link ch.swissqr.content.ch.CreditorInformation} object
 	 */
 	public void setCreditorInformation(CreditorInformation creditorInformation) {
 		this.creditorInformation = creditorInformation;
@@ -305,7 +331,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Setter to define the Ultimate Creditor Address
-	 * @param ultimatCreditorInformation
+	 *
+	 * @param ultimatCreditorInformation a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public void setUltimateCreditor(Address ultimatCreditorInformation) {
 		this.ultimateCreditor = ultimatCreditorInformation;
@@ -313,7 +340,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Setter to define the PaymentAmount
-	 * @param paymentAmount
+	 *
+	 * @param paymentAmount a {@link ch.swissqr.content.ch.PaymentAmount} object
 	 */
 	public void setPaymentAmount(PaymentAmount paymentAmount) {
 		this.paymentAmount = paymentAmount;
@@ -321,15 +349,17 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Setter to define the Debitor (Address)
-	 * @param ultimatDebitor
+	 *
+	 * @param ultimatDebitor a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public void setDebitor(Address ultimatDebitor) {
 		this.debitor = ultimatDebitor;
 	}
 
 	/**
-	 * Setter to define the PaymentReference 
-	 * @param paymentReference
+	 * Setter to define the PaymentReference
+	 *
+	 * @param paymentReference a {@link ch.swissqr.content.ch.PaymentReference} object
 	 */
 	public void setPaymentReference(PaymentReference paymentReference) {
 		this.paymentReference = paymentReference;
@@ -337,13 +367,16 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Setter to define the list of alternative schemas
-	 * @param alternativeSchema
+	 *
+	 * @param alternativeSchema a {@link java.util.List} object
 	 */
 	public void setAlternativeSchema(List<IAlternativeSchema> alternativeSchema) {
 		this.alternativeSchema = alternativeSchema;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Validates the object and returns true if there are no issues
 	 */
 	@Override
@@ -353,6 +386,8 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Clears the content of the corrent object
 	 */
 	@Override
@@ -367,6 +402,8 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Used to define additional output information: e.g page format, picture type..
 	 */
 	@JsonIgnore
@@ -376,6 +413,8 @@ public class ContentBarcodeCH implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Used to identify the message type
 	 */
 	@JsonIgnore
@@ -387,7 +426,8 @@ public class ContentBarcodeCH implements IContent {
 
 	/**
 	 * Copies the content of the source ContentBarcodeCH
-	 * @param source
+	 *
+	 * @param source a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public void copyFrom(ContentBarcodeCH source) {
 		this.creditor(source.getCreditorInformation());
@@ -399,6 +439,7 @@ public class ContentBarcodeCH implements IContent {
 		
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel) throws UnsupportedEncodingException, BarcodeException, IOException {
 		Double mmEff = mm==null? 46.0 : mm;
@@ -407,14 +448,24 @@ public class ContentBarcodeCH implements IContent {
 		return barcode.createImage(this.getContent(), format);
 	}
 
+	/**
+	 * <p>toBarcode.</p>
+	 *
+	 * @param format a {@link java.lang.String} object
+	 * @return a {@link java.awt.image.BufferedImage} object
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	public BufferedImage toBarcode(String format) throws UnsupportedEncodingException, BarcodeException, IOException {
 		IBarcode barcode = this.isOK() ? new QRSwissBarcode(this.isTest()): new QRBarcode(46.0, ErrorCorrectionLevel.M);
 		return barcode.createImage(this.getContent(), format);
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Provides all fields in a Map
-	 * @return
 	 */
 	@Override
 	@JsonIgnore
@@ -422,48 +473,77 @@ public class ContentBarcodeCH implements IContent {
 		return new MapData().contentToMap(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String, Object> record) throws ParseException {
 		new MapData().mapToContent(record, this);		
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getContentType() {
 		return ContentBarcodeCH.class.getSimpleName();
 	}
 
 
+	/** {@inheritDoc} */
 	@Override
 	public void setTest(boolean isTest) {
 		this.test = isTest;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isTest() {
 		return this.test;
 	}
 
 	/// Defines the file format for the mass processing
+	/**
+	 * <p>setFilename.</p>
+	 *
+	 * @param filename a {@link java.lang.String} object
+	 */
 	public void setFilename(String filename){
 		this.properties.put("filename",filename);
 	}
 	
+	/**
+	 * <p>getFilename.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	@XmlElement
 	public String getFilename() {
 		return StringUtils.getProperty("filename","");
 	}
 	
 	// Defines the picture format for the mass processing
+	/**
+	 * <p>setPictureFormat.</p>
+	 *
+	 * @param fmt a {@link java.lang.String} object
+	 */
 	public void setPictureFormat(String fmt) {
 		this.properties.put("pictureFormat", fmt);
 	}
 	
+	/**
+	 * <p>getPictureFormat.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	@XmlElement
 	public String getPictureFormat() {
 		return StringUtils.getProperty("pictureFormat","");
 	}
 
 	// Defines the dimension of the image
+	/**
+	 * <p>setDimension.</p>
+	 *
+	 * @param dim a {@link java.lang.String} object
+	 */
 	public void setDimension(String dim) {
 		this.properties.put("dimension", dim);
 	}

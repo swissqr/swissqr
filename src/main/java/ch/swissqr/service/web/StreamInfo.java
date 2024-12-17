@@ -13,9 +13,8 @@ import ch.swissqr.utils.StringUtils;
 /**
  * For streamlined multi file upload we return a collection of the objects which
  * are necessary
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class StreamInfo {
 	InputStream inputStream;
@@ -28,6 +27,12 @@ public class StreamInfo {
 		this.extension = StringUtils.getFileExtension(fileName);
 	}
 
+	/**
+	 * <p>getStreams.</p>
+	 *
+	 * @param multiPart a {@link org.glassfish.jersey.media.multipart.FormDataMultiPart} object
+	 * @return a {@link java.util.List} object
+	 */
 	public static List<StreamInfo> getStreams(FormDataMultiPart multiPart) {
 		List<FormDataBodyPart> bodyParts = multiPart.getFields("file");
 		List<StreamInfo> result = new ArrayList();

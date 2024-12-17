@@ -9,23 +9,31 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Creditor information section of swiss barcode payload
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class CreditorInformation {
  	private String iban = "";
  	private Address creditorAddress = new Address();
 
+	/**
+	 * <p>Constructor for CreditorInformation.</p>
+	 */
 	public CreditorInformation() {		
 	}
 
+	/**
+	 * <p>Constructor for CreditorInformation.</p>
+	 *
+	 * @param creditorAddress a {@link ch.swissqr.content.ch.Address} object
+	 * @param iban a {@link java.lang.String} object
+	 */
 	public CreditorInformation(Address creditorAddress, String iban) {
 		this.iban = iban;
 		this.creditorAddress = creditorAddress;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -35,24 +43,51 @@ public class CreditorInformation {
 		return sb.toString();
 	}
 
+	/**
+	 * <p>Getter for the field <code>iban</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getIban() {
 		return iban;
 	}
 
+	/**
+	 * <p>iban.</p>
+	 *
+	 * @param iban a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.CreditorInformation} object
+	 */
 	public CreditorInformation iban(String iban) {
 		this.iban = iban;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>creditorAddress</code>.</p>
+	 *
+	 * @return a {@link ch.swissqr.content.ch.Address} object
+	 */
 	public Address getCreditorAddress() {
 		return creditorAddress;
 	}
 
+	/**
+	 * <p>creditorAddress.</p>
+	 *
+	 * @param adr a {@link ch.swissqr.content.ch.Address} object
+	 * @return a {@link ch.swissqr.content.ch.CreditorInformation} object
+	 */
 	public CreditorInformation creditorAddress(Address adr) {
 		creditorAddress = adr;
 		return this;
 	}
 	
+	/**
+	 * <p>check.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<Error> check() {
 		List<Error> result =  new ArrayList();
 		StringUtils.check("iban", true, 21, iban, result);

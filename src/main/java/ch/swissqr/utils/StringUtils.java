@@ -23,19 +23,19 @@ import org.apache.log4j.Logger;
 
 /**
  * String utility functions
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class StringUtils {
 	private static Logger LOG = Logger.getLogger(StringUtils.class);
+	/** Constant <code>CRLF="\r\n"</code> */
 	public static String CRLF = "\r\n";
 
 	/**
 	 * Returns true if the string is null or empty or contains only spaces
-	 * 
-	 * @param str
-	 * @return
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a boolean
 	 */
 	public static boolean isEmpty(String str) {
 		return str == null || str.trim().isEmpty();
@@ -43,14 +43,20 @@ public class StringUtils {
 
 	/**
 	 * Converts a null into an empty string
-	 * 
-	 * @param str
-	 * @return
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String str(String str) {
 		return str == null ? "" : str;
 	}
 
+	/**
+	 * <p>str.</p>
+	 *
+	 * @param str a {@link java.lang.Object} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public static String str(Object str) {
 		return str == null ? "" : str.toString();
 	}
@@ -58,12 +64,12 @@ public class StringUtils {
 	/**
 	 * Checks if the indicated field is not too long, empty and contains only valid
 	 * entries
-	 * 
-	 * @param fieldName
-	 * @param mandatory
-	 * @param maxLen
-	 * @param value
-	 * @param msgList
+	 *
+	 * @param fieldName a {@link java.lang.String} object
+	 * @param mandatory a boolean
+	 * @param maxLen a int
+	 * @param value a {@link java.lang.String} object
+	 * @param msgList a {@link java.util.List} object
 	 */
 	public static void check(String fieldName, boolean mandatory, int maxLen, String value, List<Error> msgList) {
 		if (mandatory && StringUtils.isEmpty(value)) {
@@ -79,12 +85,12 @@ public class StringUtils {
 
 	/**
 	 * * Checks if the indicated field is not too long, empty
-	 * 
-	 * @param fieldName
-	 * @param mandatory
-	 * @param asList
-	 * @param value
-	 * @param msgList
+	 *
+	 * @param fieldName a {@link java.lang.String} object
+	 * @param mandatory a boolean
+	 * @param asList a {@link java.util.List} object
+	 * @param value a {@link java.lang.String} object
+	 * @param msgList a {@link java.util.List} object
 	 */
 	public static void check(String fieldName, boolean mandatory, List<String> asList, String value,
 			List<Error> msgList) {
@@ -101,9 +107,9 @@ public class StringUtils {
 
 	/**
 	 * Determines a the value of a system property or environment property
-	 * 
-	 * @param name
-	 * @return
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String getProperty(String name) {
 		String str = System.getProperty(name);
@@ -116,10 +122,10 @@ public class StringUtils {
 	/**
 	 * Determines a the value of a system property or environment property. If
 	 * nothing is defined we use the default value
-	 * 
-	 * @param name
-	 * @param defaultValue
-	 * @return
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @param defaultValue a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String getProperty(String name, String defaultValue) {
 		String str = System.getProperty(name);
@@ -132,11 +138,11 @@ public class StringUtils {
 	/**
 	 * Determines a value from the properties. If it is not found we return the
 	 * default value
-	 * 
-	 * @param prop
-	 * @param name
-	 * @param defaultValue
-	 * @return
+	 *
+	 * @param prop a {@link java.util.Map} object
+	 * @param name a {@link java.lang.String} object
+	 * @param defaultValue a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String getProperty(Map prop, String name, String defaultValue) {
 		String str = (String) prop.get(name);
@@ -145,23 +151,37 @@ public class StringUtils {
 
 	/**
 	 * Reads the content of the URL into a String
-	 * 
-	 * @param url
-	 * @return
-	 * @throws IOException
-	 * @throws MalformedURLException
+	 *
+	 * @throws java.io.IOException
+	 * @throws java.net.MalformedURLException
+	 * @param url a {@link java.net.URL} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String urlToString(URL url) throws IOException, MalformedURLException {
 		URLConnection con = url.openConnection();
 		return inputStreamToString(con.getInputStream());
 	}
 
+	/**
+	 * <p>inputStreamToString.</p>
+	 *
+	 * @param is a {@link java.io.InputStream} object
+	 * @return a {@link java.lang.String} object
+	 * @throws java.io.IOException if any.
+	 * @throws java.net.MalformedURLException if any.
+	 */
 	public static String inputStreamToString(InputStream is) throws IOException, MalformedURLException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 		String barcodeContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
 		return barcodeContent;
 	}
 
+	/**
+	 * <p>getDateDelimiter.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a char
+	 */
 	public static char getDateDelimiter(String str) {
 		for (char c : str.toCharArray()) {
 			if (c != ' ' && !Character.isDigit(c)) {
@@ -171,6 +191,13 @@ public class StringUtils {
 		return '.';
 	}
 
+	/**
+	 * <p>parseDate.</p>
+	 *
+	 * @param dueDateString a {@link java.lang.String} object
+	 * @return a {@link java.util.Date} object
+	 * @throws java.text.ParseException if any.
+	 */
 	public static Date parseDate(String dueDateString) throws ParseException {
 		Date dueDate = null;
 		if (!StringUtils.isEmpty(dueDateString)) {
@@ -191,6 +218,13 @@ public class StringUtils {
 		return dueDate;
 	}
 
+	/**
+	 * <p>loadProperties.</p>
+	 *
+	 * @param resourceName a {@link java.lang.String} object
+	 * @return a {@link java.util.Properties} object
+	 * @throws java.io.IOException if any.
+	 */
 	public static Properties loadProperties(String resourceName) throws IOException {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		Properties props = new Properties();
@@ -200,6 +234,13 @@ public class StringUtils {
 		return props;
 	}
 
+	/**
+	 * <p>loadResource.</p>
+	 *
+	 * @param cls a {@link java.lang.Class} object
+	 * @param fileName a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public static String loadResource(Class cls, String fileName) {
 		InputStream is = cls.getResourceAsStream(fileName.startsWith("/") ? fileName : "/" + fileName);
 		Scanner s = new Scanner(is, "UTF8").useDelimiter("\\A");
@@ -209,9 +250,9 @@ public class StringUtils {
 
 	/**
 	 * Determines the file extension from a file name
-	 * 
-	 * @param fileName
-	 * @return
+	 *
+	 * @param fileName a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String getFileExtension(String fileName) {
 		String extension = "";
@@ -225,12 +266,11 @@ public class StringUtils {
 	/**
 	 * We determie the file format (file extension) from the indicated mime string
 	 * E.g for image/jpeg we return jpeg
-	 * 
-	 * @param accept
-	 * @param mime
-	 * @return
+	 *
+	 * @param accept a {@link java.lang.String} object
+	 * @param mime a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
-
 	public static String getFormatFromMime(String accept, String mime) {
 		String result = mime;
 		if (accept != null) {
@@ -245,11 +285,10 @@ public class StringUtils {
 
 	/**
 	 * Returns the first line up to the first line separator
-	 * 
-	 * @param str
-	 * @return
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
-
 	public static String firstLine(String str) {
 		int pos = str.indexOf(System.lineSeparator());
 		String result = "";
@@ -261,10 +300,10 @@ public class StringUtils {
 
 	/**
 	 * Compares two strings. null and "" are treated as equal
-	 * 
-	 * @param s1
-	 * @param s2
-	 * @return
+	 *
+	 * @param s1 a {@link java.lang.String} object
+	 * @param s2 a {@link java.lang.String} object
+	 * @return a boolean
 	 */
 	public static boolean equals(String s1, String s2) {
 		return str(s1).equals(str(s2));
@@ -272,10 +311,10 @@ public class StringUtils {
 
 	/**
 	 * Formats the string in groups
-	 * 
-	 * @param groups
-	 * @param str
-	 * @return
+	 *
+	 * @param groups a int
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String formatInGroups(int groups, String str) {
 		String str1 = str.replaceAll(" ", "");
@@ -294,12 +333,11 @@ public class StringUtils {
 
 	/**
 	 * Formats a string into groups of n characters separated by space
-	 * 
-	 * @param n
-	 * @param str
-	 * @return
+	 *
+	 * @param n a int
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
-
 	public static String formatInGroupsRight(int n, String str) {
 		String result = StringUtils.reverse(str);
 		result = StringUtils.formatInGroups(n, result);
@@ -309,10 +347,10 @@ public class StringUtils {
 
 	/**
 	 * Splits a string into a head and tail at the indicated position
-	 * 
-	 * @param str
-	 * @param pos
-	 * @return
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @param pos a int
+	 * @return an array of {@link java.lang.String} objects
 	 */
 	public static String[] split(String str, int pos) {
 		String head = "";
@@ -330,9 +368,9 @@ public class StringUtils {
 
 	/**
 	 * Reverses a String
-	 * 
-	 * @param a
-	 * @return
+	 *
+	 * @param a a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String reverse(String a) {
 		int j = a.length();
@@ -345,11 +383,11 @@ public class StringUtils {
 
 	/**
 	 * Lines which are too long are split into multiple printed lines
-	 * 
-	 * @param in
-	 * @param limit
-	 * @param wrapLimit
-	 * @return
+	 *
+	 * @param in a {@link java.lang.String} object
+	 * @param limit a int
+	 * @param wrapLimit a int
+	 * @return a {@link java.util.List} object
 	 */
 	public static List<String> splitLines(String in, int limit, int wrapLimit) {
 		List<String> result = new ArrayList();

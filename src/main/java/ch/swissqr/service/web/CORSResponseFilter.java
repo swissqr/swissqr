@@ -9,12 +9,14 @@ import javax.ws.rs.core.MultivaluedMap;
 
 /**
  * Allow cors requests
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class CORSResponseFilter implements ContainerResponseFilter {
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Add additional headers to the response context
 	 */
 	@Override

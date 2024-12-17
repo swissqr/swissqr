@@ -32,9 +32,8 @@ import ch.swissqr.utils.Error;
  * returned as zip file. The standard json conversion is not flexible enough for
  * our purpose because the data type is not exactly known. Therfore we perform
  * the conversion ourselfs
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 
 @Path("/service/objects")
@@ -43,16 +42,19 @@ public class BulkService implements Serializable {
 	private final Logger LOG = Logger.getLogger(BulkService.class);
 	private @Context HttpHeaders headers;
 
+	/**
+	 * <p>Constructor for BulkService.</p>
+	 */
 	public BulkService() {
 		LOG.info("SwissQR");
 	}
 
 	/**
 	 * Checks the completeness and correctness of the provided data
-	 * 
-	 * @param barcodes
-	 * @return
-	 * @throws Exception
+	 *
+	 * @throws java.lang.Exception
+	 * @param barcodes a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
 	 */
 
 	@POST
@@ -74,10 +76,10 @@ public class BulkService implements Serializable {
 
 	/**
 	 * Get one or multiple barcode images
-	 * 
-	 * @param barcodes
-	 * @return
-	 * @throws Exception
+	 *
+	 * @throws java.lang.Exception
+	 * @param barcodes a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@POST
 	@Path("/barcodes")
@@ -100,13 +102,10 @@ public class BulkService implements Serializable {
 
 	/**
 	 * Get one or multiple paymentslip images
-	 * 
-	 * 
-	 * @param barcodes
-	 * @return
-	 * @throws Exception
-	 * 
-	 * @return
+	 *
+	 * @throws java.lang.Exception
+	 * @param barcodes a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@POST
 	@Path("/paymentslips")

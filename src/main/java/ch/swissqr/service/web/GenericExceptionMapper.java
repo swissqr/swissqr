@@ -13,17 +13,20 @@ import ch.swissqr.errors.LicenceError;
 /**
  * REST ExceptionMapper which provides the Exception information as json to the
  * caller
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 	private static Logger LOG = Logger.getLogger(GenericExceptionMapper.class);
 
+	/**
+	 * <p>Constructor for GenericExceptionMapper.</p>
+	 */
 	public GenericExceptionMapper() {
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Response toResponse(Throwable ex) {
 		LOG.error(ex, ex);

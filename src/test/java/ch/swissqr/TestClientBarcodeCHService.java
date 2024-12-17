@@ -149,9 +149,9 @@ public class TestClientBarcodeCHService {
 		.queryParam("language", "en")
 		.queryParam("pageFormat", "A4")
 		.queryParam("printLines", "true")
-		.queryParam("licenseKey", LICENSE)
+		//.queryParam("licenseKey", LICENSE)
 		.request()
-//		.accept("image/png")
+		.accept("image/png")
 		.get(InputStream.class);
 		Thread.sleep(1000);
 		Assert.assertTrue(is.available()>0);

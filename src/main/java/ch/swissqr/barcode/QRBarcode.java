@@ -28,27 +28,36 @@ import ch.swissqr.errors.BarcodeException;
 import ch.swissqr.utils.Convert;
 
 /**
- * Generation of QR barcodes 
- * 
- * @author pschatzmann
+ * Generation of QR barcodes
  *
+ * @author pschatzmann
  */
-
 public class QRBarcode implements IBarcode {
 	private static final Logger LOG = Logger.getLogger(QRBarcode.class);
 	private ErrorCorrectionLevel level = ErrorCorrectionLevel.M;
 	private Convert cv = new Convert(120.0);
 	private int dimensions = cv.mmToPixel(46.0) ; // in pixel e.g. 174
 
+	/**
+	 * <p>Constructor for QRBarcode.</p>
+	 */
 	public QRBarcode() {
 	}
 
+	/**
+	 * <p>Constructor for QRBarcode.</p>
+	 *
+	 * @param dimensionsMM a double
+	 * @param level a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 */
 	public QRBarcode(double dimensionsMM, ErrorCorrectionLevel level) {
 		this.dimensions = cv.mmToPixel(dimensionsMM);
 		this.level = level;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Create the image for the indicated barcode String
 	 */
 	public BufferedImage createImage(String qrCodeText, String imageFormat) throws BarcodeException, IOException {
@@ -61,6 +70,8 @@ public class QRBarcode implements IBarcode {
 	
 	
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Create the image for the indicated barcode String
 	 */
 	public byte[] create(String qrCodeText, String imageFormat) throws BarcodeException, IOException {
@@ -107,10 +118,12 @@ public class QRBarcode implements IBarcode {
 	
 	/**
 	 * Reads the image from the Inputstream and returns the related decoded content string
-	 * @throws IOException
-	 * @throws BarcodeException
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @param is a {@link java.io.InputStream} object
+	 * @return a {@link java.lang.String} object
 	 */
-
 	public String readImage(InputStream is) throws  IOException, BarcodeException {
 		String msg = "";
 		try {
@@ -123,11 +136,9 @@ public class QRBarcode implements IBarcode {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Reads the BufferedImage from  and returns the related decoded content string
-	 * @param bi
-	 * @return
-	 * @throws IOException
-	 * @throws BarcodeException
 	 */
 	public String readImage(BufferedImage bi)
 			throws IOException, BarcodeException {
@@ -153,6 +164,11 @@ public class QRBarcode implements IBarcode {
 		}
 	}
 	
+	/**
+	 * <p>Getter for the field <code>dimensions</code>.</p>
+	 *
+	 * @return a int
+	 */
 	protected int getDimensions() {
 		return this.dimensions;
 	}

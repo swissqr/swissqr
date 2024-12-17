@@ -18,11 +18,9 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Populates the BarcodeContentCH from a Map and converts a ContentBarcodeCH to a map
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class MapData {
 	private final static Logger LOG = Logger.getLogger(MapData.class);
 	private Map<String, Object> values;
@@ -30,10 +28,10 @@ public class MapData {
 
 	/**
 	 * Converts a map to a ContentBarcodeCH object
-	 * 
-	 * @param values
-	 * @param content
-	 * @throws ParseException
+	 *
+	 * @throws java.text.ParseException
+	 * @param values a {@link java.util.Map} object
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
 	 */
 	public void mapToContent(Map<String, Object> values, ContentBarcodeCH content) throws ParseException {
 		this.values = values;
@@ -168,14 +166,21 @@ public class MapData {
 
 	/**
 	 * Converts a ContentBarcodeCH to a map
-	 * 
-	 * @param content
-	 * @return
+	 *
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @return a {@link java.util.Map} object
 	 */
 	public Map<String, Object> contentToMap(ContentBarcodeCH content) {
 		return contentToMap(content, false);
 	}
 
+	/**
+	 * <p>contentToMap.</p>
+	 *
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @param withEmtpyEntries a boolean
+	 * @return a {@link java.util.Map} object
+	 */
 	public Map<String, Object> contentToMap(ContentBarcodeCH content, boolean withEmtpyEntries) {
 		Map<String, Object> result = new TreeMap();
 		putAddress(content.getDebitor(), "Debitor", withEmtpyEntries, result);

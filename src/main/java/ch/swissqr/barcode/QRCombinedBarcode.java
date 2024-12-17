@@ -17,24 +17,29 @@ import ch.swissqr.utils.Convert;
 
 /**
  * Generation of a  QR Barcode with an image in the center. The image is loaded from the resources
- * 
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class QRCombinedBarcode extends QRBarcode implements IBarcode {
 	private Convert cv = new Convert(120.0);
 	private String resourceLocation="";
 	private double dimension;
 	private ErrorCorrectionLevel errorLevel;
 	
+	/**
+	 * <p>Constructor for QRCombinedBarcode.</p>
+	 *
+	 * @param resourceLocation a {@link java.lang.String} object
+	 * @param dimensionsMM a double
+	 * @param level a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 */
 	public QRCombinedBarcode(String resourceLocation, double dimensionsMM, ErrorCorrectionLevel level) {		
 		this.resourceLocation = resourceLocation;
 		this.dimension = dimensionsMM;
 		this.errorLevel = level;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public byte[] create(String qrCodeText, String imageFormat) throws BarcodeException, IOException  {
 		BufferedImage bi = createImage(qrCodeText, imageFormat);
@@ -46,6 +51,7 @@ public class QRCombinedBarcode extends QRBarcode implements IBarcode {
 		return imageInByte;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public BufferedImage createImage(String qrCodeText, String imageFormat) throws BarcodeException, IOException  {
 		IBarcode bc = new QRBarcode(cv.mmToPixel(dimension), this.errorLevel);

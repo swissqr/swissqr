@@ -17,9 +17,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 /**
  * Startup of the webservice on localhost. The port can be passed as parameter. If no port is
  * indicated we use port 9990.
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class Main {
 	private final static Logger LOG = Logger.getLogger(Main.class);
@@ -34,8 +33,9 @@ public class Main {
 	}
 	/**
 	 * Starts the service server
-	 * @param args
-	 * @throws UnknownHostException
+	 *
+	 * @throws java.net.UnknownHostException
+	 * @param args an array of {@link java.lang.String} objects
 	 */
 	public static void main(String[] args) throws UnknownHostException {
 		if (args.length > 0) {
@@ -78,10 +78,18 @@ public class Main {
 		LOG.info("**END**");
 	}
 	
+	/**
+	 * <p>stop.</p>
+	 */
 	public static void stop() {
 		active = false;
 	}
 	
+	/**
+	 * <p>isAvailable.</p>
+	 *
+	 * @return a boolean
+	 */
 	public static boolean isAvailable() {
 	    try (Socket ignored = new Socket(host, Integer.valueOf(port))) {
 	        return false;

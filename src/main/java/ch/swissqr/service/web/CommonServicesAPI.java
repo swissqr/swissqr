@@ -28,20 +28,20 @@ import ch.swissqr.utils.StringUtils;
 /**
  * Top Level Java API for the writing pictures and pdfs to an output stream.
  * Multiple objects are returned as zip output stream.
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class CommonServicesAPI {
 	private static Logger LOG = Logger.getLogger(CommonServicesAPI.class);
+	/** Constant <code>TEST_IBAN="CH4431999123000889012"</code> */
 	public static String TEST_IBAN = "CH4431999123000889012";
 	/**
 	 * Converts a collection of strings into a stream of QR barcode images
-	 * 
-	 * @param result
-	 * @param input
-	 * @throws BarcodeException
-	 * @throws IOException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param result a {@link java.io.OutputStream} object
+	 * @param input a {@link java.util.Collection} object
 	 */
 	public static void getBarcodes(OutputStream result, Collection<String> input)
 			throws BarcodeException, IOException {
@@ -55,13 +55,13 @@ public class CommonServicesAPI {
 	/**
 	 * Converts a collection of BarcodeContentCH into a stream of barcodes
 	 * images
-	 * 
-	 * @param result
-	 * @param input
-	 * @param pictureFormat
-	 * @param zip
-	 * @throws BarcodeException
-	 * @throws IOException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param result a {@link java.io.OutputStream} object
+	 * @param input a {@link java.util.Collection} object
+	 * @param pictureFormat a {@link java.lang.String} object
+	 * @param zip a {@link java.lang.Boolean} object
 	 */
 	@SuppressWarnings("unchecked")
 	public static void getBarcodes(OutputStream result, Collection<IContent> input, String pictureFormat,
@@ -72,13 +72,13 @@ public class CommonServicesAPI {
 	/**
 	 * Converts a collection of quick response code objects into a stream of QR
 	 * barcodes
-	 * 
-	 * @param result
-	 * @param input
-	 * @param pictureFormat
-	 * @param zip
-	 * @throws BarcodeException
-	 * @throws IOException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param result a {@link java.io.OutputStream} object
+	 * @param input a {@link java.util.Collection} object
+	 * @param pictureFormat a {@link java.lang.String} object
+	 * @param zip a {@link java.lang.Boolean} object
 	 */
 
 	@SuppressWarnings("unchecked")
@@ -90,6 +90,14 @@ public class CommonServicesAPI {
 	}
 
 	
+	/**
+	 * <p>getContent.</p>
+	 *
+	 * @param result a {@link java.io.OutputStream} object
+	 * @param input a {@link java.util.Collection} object
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	protected static void getContent(OutputStream result, Collection<IContent> input)
 			throws BarcodeException, IOException {
 
@@ -123,9 +131,9 @@ public class CommonServicesAPI {
 
 	/**
 	 * Checks the completeness and correctness of the content for barcode objects
-	 * 
-	 * @param inputCollection
-	 * @return
+	 *
+	 * @param inputCollection a {@link java.util.Collection} object
+	 * @return a {@link java.util.List} object
 	 */
 	protected static List<Error> check(Collection<IContent> inputCollection) {
 		List<Error> result = new ArrayList();
@@ -144,11 +152,11 @@ public class CommonServicesAPI {
 	/**
 	 * Writes a collection of BarcodeContentCH as payment slip documents to the
 	 * output stream
-	 * 
-	 * @param result
-	 * @param input
-	 * @throws BarcodeException
-	 * @throws IOException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param result a {@link java.io.OutputStream} object
+	 * @param input a {@link java.util.Collection} object
 	 */
 	protected static void getPaymentSlips(OutputStream result, Collection<ContentBarcodeCH> input)
 			throws BarcodeException, IOException {
@@ -184,6 +192,12 @@ public class CommonServicesAPI {
 
 	}
 
+	/**
+	 * <p>getBarcodeStreamingOutput.</p>
+	 *
+	 * @param barcodeList a {@link java.util.List} object
+	 * @return a {@link javax.ws.rs.core.StreamingOutput} object
+	 */
 	public static StreamingOutput getBarcodeStreamingOutput(List<IContent> barcodeList) {
 		StreamingOutput stream = new StreamingOutput() {
 			@Override
@@ -198,6 +212,12 @@ public class CommonServicesAPI {
 		return stream;
 	}
 
+	/**
+	 * <p>getPaymentSlipStreamingOutput.</p>
+	 *
+	 * @param barcodeList a {@link java.util.List} object
+	 * @return a {@link javax.ws.rs.core.StreamingOutput} object
+	 */
 	public static StreamingOutput getPaymentSlipStreamingOutput( List<ContentBarcodeCH> barcodeList) {
 		StreamingOutput stream = new StreamingOutput() {
 			@Override

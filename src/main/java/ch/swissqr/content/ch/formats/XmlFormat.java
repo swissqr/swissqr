@@ -12,12 +12,12 @@ import ch.swissqr.content.IContent;
 
 /**
  * Serialization and Deserialization of XML
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class XmlFormat  implements IFormat {
 
+	/** {@inheritDoc} */
 	@Override
 	public String write(List<IContent> c) throws FormatException {
 		try {
@@ -33,6 +33,7 @@ public class XmlFormat  implements IFormat {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<IContent> read(String xmlString) throws FormatException {
 		try {

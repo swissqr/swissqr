@@ -39,9 +39,8 @@ import ch.swissqr.utils.StringUtils;
 /**
  * Simple REST webserivces for the processing of one single EU Quick Response
  * Code QR Barcode
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 @Path("/service/simpleeuqr")
 public class QRSimpleEU {
@@ -50,27 +49,27 @@ public class QRSimpleEU {
 
 	/**
 	 * Validates the correctness and completeness of the Quick Response Code
-	 * @param name
-	 * @param iban
-	 * @param bic
-	 * @param amount
-	 * @param currency
-	 * @param information
-	 * @param purpose
-	 * @param remittanceReference
-	 * @param remittanceText
-	 * @param format
-	 * @param licenseKey
-	 * @return
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param name a {@link java.lang.String} object
+	 * @param iban a {@link java.lang.String} object
+	 * @param bic a {@link java.lang.String} object
+	 * @param amount a {@link java.lang.String} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param information a {@link java.lang.String} object
+	 * @param purpose a {@link java.lang.String} object
+	 * @param remittanceReference a {@link java.lang.String} object
+	 * @param remittanceText a {@link java.lang.String} object
+	 * @param format a {@link java.lang.String} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
 	 */
-	
+
 	@GET
 	@Path("/check")
 	@Produces("application/json")
-
 	public List<Error> simpleCheck(@QueryParam("Name") String name, @QueryParam("IBAN") String iban,
 			@QueryParam("BIC") String bic, @QueryParam("Amount") String amount, @QueryParam("Currency") String currency,
 			@QueryParam("Information") String information, @QueryParam("Purpose") String purpose,
@@ -91,29 +90,28 @@ public class QRSimpleEU {
 
 	/**
 	 * Create a single EU Quick Response Code
-     *
-	 * @param name
-	 * @param iban
-	 * @param bic
-	 * @param amount
-	 * @param currency
-	 * @param information
-	 * @param purpose
-	 * @param remittanceReference
-	 * @param remittanceText
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param name a {@link java.lang.String} object
+	 * @param iban a {@link java.lang.String} object
+	 * @param bic a {@link java.lang.String} object
+	 * @param amount a {@link java.lang.String} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param information a {@link java.lang.String} object
+	 * @param purpose a {@link java.lang.String} object
+	 * @param remittanceReference a {@link java.lang.String} object
+	 * @param remittanceText a {@link java.lang.String} object
+	 * @param mm a double
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@GET
 	@Path("/barcode")
 	@Consumes({ "text/plain" })
 	@Produces({ "image/gif", "image/png", "image/jpeg", "application/json" })
-
 	public Response getBarcode(@QueryParam("Name") String name, @QueryParam("IBAN") String iban,
 			@QueryParam("BIC") String bic, @QueryParam("Amount") String amount, @QueryParam("Currency") String currency,
 			@QueryParam("Information") String information, @QueryParam("Purpose") String purpose,
@@ -139,6 +137,17 @@ public class QRSimpleEU {
 
 	}
 
+	/**
+	 * <p>getBarcode.</p>
+	 *
+	 * @param map a {@link javax.ws.rs.core.MultivaluedMap} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.text.ParseException if any.
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
+	 */
 	@POST
 	@Path("/barcode")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -159,19 +168,18 @@ public class QRSimpleEU {
 	/**
 	 * Returns the content of the barcode image file. If it is a Swiss Barcode we
 	 * convert the content to a readable paramtername : content text format
-	 * 
-	 * @param body
-	 * @return
-	 * @throws IOException
-	 * @throws BarcodeException
-	 * @throws LicenceError
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param body a {@link org.glassfish.jersey.media.multipart.FormDataMultiPart} object
+	 * @return a {@link java.lang.String} object
 	 */
 
 	@POST
 	@Path("/imageToText")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.TEXT_PLAIN)
-
 	public String imageToText(FormDataMultiPart body) throws IOException, BarcodeException, LicenceError {
 
 		LOG.info("imageToText");

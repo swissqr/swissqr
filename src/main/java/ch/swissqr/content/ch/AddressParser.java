@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 /**
  * Parse a address string into an Structured Address
  *
+ * @author pschatzmann
  */
-
 public class AddressParser implements IAddressParser {
 	private static Logger LOG = Logger.getLogger(AddressParser.class);
 	private static Map<String, String> countryMap = null;
@@ -26,6 +26,7 @@ public class AddressParser implements IAddressParser {
 			"madame","mme","mmes","mlle","monsieur","m."));
 	}
 
+	/** {@inheritDoc} */
 	public void parse(String str, Address adr) {
 		String sa[] = str.split("[\\r\\n]+|;|,");
 		List<String> lines = new ArrayList(Arrays.asList(sa));
@@ -82,9 +83,9 @@ public class AddressParser implements IAddressParser {
 	/**
 	 * Adds additional salutations which will be ignored in the starting address.
 	 * Currently we have "herr", "frau", "firma", "fräulein", "firma", "mr", "ms",
-			"madame","mme","mmes","mlle","monsieur","m."
-	 * 
-	 * @param salutations
+	 *			"madame","mme","mmes","mlle","monsieur","m."
+	 *
+	 * @param salutations a {@link java.util.Collection} object
 	 */
 	public void addSalutations(Collection<String> salutations) {
 		salutations.forEach(s -> salutations.add(s.toLowerCase()));
@@ -92,7 +93,8 @@ public class AddressParser implements IAddressParser {
 	
 	/**
 	 * Removes the indicated saluatations
-	 * @param salutations
+	 *
+	 * @param salutations a {@link java.util.Collection} object
 	 */
 	public void removeSalutations(Collection<String> salutations) {
 		salutations.forEach(s -> salutations.remove(s.toLowerCase()));
@@ -100,13 +102,19 @@ public class AddressParser implements IAddressParser {
 	
 	/**
 	 * Returns the currently defined salutations
-	 * @return
+	 *
+	 * @return a {@link java.util.List} object
 	 */
 	public List<String> getSalutations(){
 		return this.salutations;
 	}
 
 
+	/**
+	 * <p>Getter for the field <code>countryMap</code>.</p>
+	 *
+	 * @return a {@link java.util.Map} object
+	 */
 	protected static Map<String, String> getCountryMap() {
 		if (countryMap == null) {
 			countryMap = new HashMap();
@@ -140,12 +148,22 @@ public class AddressParser implements IAddressParser {
 		return countryMap;
 	}
 
+	/**
+	 * <p>trim.</p>
+	 *
+	 * @param lines a {@link java.util.List} object
+	 */
 	protected static void trim(List<String> lines) {
 		for (int j = 0; j < lines.size(); j++) {
 			lines.set(j, lines.get(j).trim());
 		}
 	}
 
+	/**
+	 * <p>removeEmptyLines.</p>
+	 *
+	 * @param lines a {@link java.util.List} object
+	 */
 	protected static void removeEmptyLines(List<String> lines) {
 		boolean ok = false;
 		do {

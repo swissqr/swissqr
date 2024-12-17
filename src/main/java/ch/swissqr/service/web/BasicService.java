@@ -35,9 +35,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Basic REST webservices to generate QR barcodes
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 
 @Path("/service/basic")
@@ -45,14 +44,17 @@ public class BasicService {
 	private final Logger LOG = Logger.getLogger(BasicService.class);
 	private @Context HttpHeaders headers;
 
+	/**
+	 * <p>Constructor for BasicService.</p>
+	 */
 	public BasicService() {
 		LOG.info("BarcodeService");
 	}
 
 	/**
 	 * Test if the service is up and running...
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@GET
 	@Path("/ping")
@@ -61,6 +63,11 @@ public class BasicService {
 		return "pong";
 	}
 
+	/**
+	 * <p>swagger.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	@GET
 	@Path("/swagger")
 	@Produces("application/yaml")
@@ -82,15 +89,15 @@ public class BasicService {
 	/**
 	 * Returns a barcode image for the indicated content string. We only render the
 	 * swiss cross when there are no errors
-	 * 
-	 * @param contentString
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param contentString a {@link java.lang.String} object
+	 * @param mm a double
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@GET
 	@Path("/barcode")
@@ -122,24 +129,23 @@ public class BasicService {
 
 	/**
 	 * Barcode service for mail
-	 * 
-	 * @param to
-	 * @param subject
-	 * @param message
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param to a {@link java.lang.String} object
+	 * @param subject a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 * @param mm a double
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
-	 
+
 	@GET
 	@Path("/mail")
 	@Produces({ "image/png", "image/gif", "image/jpeg" })
-
 	public Response getBarcodeMail(@QueryParam("mailAddress") String to, @QueryParam("subject") String subject,
 			@QueryParam("message") String message, @QueryParam("dimension") @DefaultValue("46") double mm,
 			@QueryParam("errorCorrectionLevel") @DefaultValue("H") ErrorCorrectionLevel errorCorrectionLevel,
@@ -154,23 +160,22 @@ public class BasicService {
 	}
 
 	/**
-	 * Barcode service for sms /**
-	 * 
-	 * @param to
-	 * @param message
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	/**
+	 *
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param to a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 * @param mm a double
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@GET
 	@Path("/sms")
 	@Produces({ "image/png", "image/gif", "image/jpeg" })
-
 	public Response getBarcodeSms(@QueryParam("telNo") String to, @QueryParam("message") String message,
 			@QueryParam("dimension") @DefaultValue("46") double mm,
 			@QueryParam("errorCorrectionLevel") @DefaultValue("H") ErrorCorrectionLevel errorCorrectionLevel,
@@ -187,16 +192,16 @@ public class BasicService {
 
 	/**
 	 * Barcode service for tel no
-	 * 
-	 * @param to
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param to a {@link java.lang.String} object
+	 * @param mm a double
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@GET
 	@Path("/phone")
@@ -216,28 +221,27 @@ public class BasicService {
 
 	/**
 	 * Barcode service for vcard address
-	 * 
-	 * @param name
-	 * @param address
-	 * @param company
-	 * @param email
-	 * @param title
-	 * @param website
-	 * @param phoneNumber
-	 * @param mm
-	 * @param errorCorrectionLevel
-	 * @param licenseKey
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws BarcodeException
-	 * @throws IOException
-	 * @throws LicenceError
+	 *
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param name a {@link java.lang.String} object
+	 * @param address a {@link java.lang.String} object
+	 * @param company a {@link java.lang.String} object
+	 * @param email a {@link java.lang.String} object
+	 * @param title a {@link java.lang.String} object
+	 * @param website a {@link java.lang.String} object
+	 * @param phoneNumber a {@link java.lang.String} object
+	 * @param mm a int
+	 * @param errorCorrectionLevel a {@link ch.swissqr.barcode.ErrorCorrectionLevel} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
-	 
+
 	@GET
 	@Path("/vcard")
 	@Produces({ "image/png", "image/gif", "image/jpeg" })
-
 	public Response getBarcodeVCard(@QueryParam("name") String name, @QueryParam("address") String address,
 			@QueryParam("company") String company, @QueryParam("email") String email, @QueryParam("title") String title,
 			@QueryParam("website") String website, @QueryParam("phoneNumber") String phoneNumber,

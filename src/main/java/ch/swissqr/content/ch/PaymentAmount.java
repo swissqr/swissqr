@@ -17,11 +17,9 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Payment amout section of swiss barcode payload
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class PaymentAmount {
  	private BigDecimal amount = null;
  	private String currency="CHF";
@@ -29,6 +27,9 @@ public class PaymentAmount {
 	private NumberFormat format = DecimalFormat.getInstance(new Locale("de_CH"));
 	private DecimalFormat printFormat = new DecimalFormat();
 
+	/**
+	 * <p>Constructor for PaymentAmount.</p>
+	 */
 	public PaymentAmount() {
 		format.setGroupingUsed(false);
 		format.setMinimumFractionDigits(2);
@@ -41,6 +42,13 @@ public class PaymentAmount {
 		printFormat.setMinimumFractionDigits(2);
 	}
 
+	/**
+	 * <p>Constructor for PaymentAmount.</p>
+	 *
+	 * @param amount a {@link java.math.BigDecimal} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param dueDate a {@link java.util.Date} object
+	 */
 	public PaymentAmount(BigDecimal amount,String currency,Date dueDate) {
 		this();
 		this.amount = amount;
@@ -48,24 +56,40 @@ public class PaymentAmount {
 		this.dueDate = dueDate;
 	}
 
+	/**
+	 * <p>Constructor for PaymentAmount.</p>
+	 *
+	 * @param amount a {@link java.math.BigDecimal} object
+	 */
 	public PaymentAmount(BigDecimal amount) {
 		this();
 		this.amount = amount;
 	}
 	
+	/**
+	 * <p>Constructor for PaymentAmount.</p>
+	 *
+	 * @param amount a double
+	 */
 	public PaymentAmount(double amount) {
 		this();
 		this.amount = BigDecimal.valueOf(amount);
 	}
 
 	
+	/**
+	 * <p>Getter for the field <code>amount</code>.</p>
+	 *
+	 * @return a {@link java.math.BigDecimal} object
+	 */
 	public BigDecimal getAmount() {
 		return amount;
 	}
 	
 	/**
 	 * String format in SwissQR message
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getAmountStr() {
@@ -74,7 +98,8 @@ public class PaymentAmount {
 
 	/**
 	 * String format as printed on payment slip
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getAmountPrinted() {
@@ -82,21 +107,49 @@ public class PaymentAmount {
 	}
 
 
+	/**
+	 * <p>amount.</p>
+	 *
+	 * @param amount a {@link java.math.BigDecimal} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentAmount} object
+	 */
 	public PaymentAmount amount(BigDecimal amount) {
 		this.amount = amount;
 		return this;
 	}
 	
+	/**
+	 * <p>Getter for the field <code>currency</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getCurrency() {
 		return currency;
 	}
+	/**
+	 * <p>currency.</p>
+	 *
+	 * @param currency a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentAmount} object
+	 */
 	public PaymentAmount currency(String currency) {
 		this.currency = StringUtils.isEmpty(currency) ? "CHF" : currency;
 		return this;
 	}
+	/**
+	 * <p>Getter for the field <code>dueDate</code>.</p>
+	 *
+	 * @return a {@link java.util.Date} object
+	 */
 	public Date getDueDate() {
 		return dueDate;
 	}
+	/**
+	 * <p>dueDate.</p>
+	 *
+	 * @param dueDate a {@link java.util.Date} object
+	 * @return a {@link ch.swissqr.content.ch.PaymentAmount} object
+	 */
 	public PaymentAmount dueDate(Date dueDate) {
 		this.dueDate = dueDate;
 		return this;
@@ -110,6 +163,11 @@ public class PaymentAmount {
 		return result;
 	}
 	
+	/**
+	 * <p>check.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<String> check() {
 		List result =  new ArrayList();
 		StringUtils.check("amount", false, 12, getAmountStr(), result);
@@ -119,6 +177,7 @@ public class PaymentAmount {
 		return result;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -132,6 +191,11 @@ public class PaymentAmount {
 		return sb.toString();
 	}
 
+	/**
+	 * <p>toStringExt.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String toStringExt() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Amount: ");

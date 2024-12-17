@@ -36,9 +36,8 @@ import ch.swissqr.utils.StringUtils;
  * Quick Response Code: Data relevant for the initiation of a SEPA cretid
  * transfer as described by the European Payments Council (see
  * https://www.europeanpaymentscouncil.eu/document-library/guidance-documents/quick-response-code-guidelines-enable-data-capture-initiation
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class ContentBarcodeEU implements IContent {
 	private static final Logger LOG = Logger.getLogger(ContentBarcodeEU.class);
@@ -73,14 +72,28 @@ public class ContentBarcodeEU implements IContent {
 	@XmlElement()
 	private String information = "";
 
+	/**
+	 * <p>Constructor for ContentBarcodeEU.</p>
+	 */
 	public ContentBarcodeEU() {
 		format.setGroupingUsed(false);
 	}
 
+	/**
+	 * <p>Constructor for ContentBarcodeEU.</p>
+	 *
+	 * @param version a {@link ch.swissqr.content.ContentBarcodeEU.Version} object
+	 */
 	public ContentBarcodeEU(Version version) {
 		this();
 	}
 
+	/**
+	 * <p>create.</p>
+	 *
+	 * @param c a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public static ContentBarcodeEU create(ContentBarcodeCH c) {
 		ContentBarcodeEU result = new ContentBarcodeEU(Version.V002);
 		result.amount = c.getPaymentAmount().getAmount();
@@ -92,46 +105,100 @@ public class ContentBarcodeEU implements IContent {
 		return result;
 	}
 
+	/**
+	 * <p>Getter for the field <code>version</code>.</p>
+	 *
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU.Version} object
+	 */
 	public Version getVersion() {
 		return version;
 	}
 
+	/**
+	 * <p>version.</p>
+	 *
+	 * @param version a {@link ch.swissqr.content.ContentBarcodeEU.Version} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU version(Version version) {
 		this.version = version;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>bic</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getBic() {
 		return bic;
 	}
 
+	/**
+	 * <p>bic.</p>
+	 *
+	 * @param bic a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU bic(String bic) {
 		this.bic = bic;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>name</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * <p>name.</p>
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU name(String name) {
 		this.name = name;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>iban</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getIban() {
 		return iban;
 	}
 
+	/**
+	 * <p>iban.</p>
+	 *
+	 * @param iban a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU iban(String iban) {
 		this.iban = iban;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>amount</code>.</p>
+	 *
+	 * @return a {@link java.math.BigDecimal} object
+	 */
 	public BigDecimal getAmount() {
 		return amount;
 	}
 
+	/**
+	 * <p>getAmountString.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getAmountString() {
 		StringBuffer sb = new StringBuffer();
 		if (this.amount != null) {
@@ -141,11 +208,23 @@ public class ContentBarcodeEU implements IContent {
 		return sb.toString();
 	}
 
+	/**
+	 * <p>amount.</p>
+	 *
+	 * @param amount a {@link java.math.BigDecimal} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU amount(BigDecimal amount) {
 		this.amount = amount;
 		return this;
 	}
 
+	/**
+	 * <p>amount.</p>
+	 *
+	 * @param amountStr a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU amount(String amountStr) {
 		if (!StringUtils.isEmpty(amountStr)) {
 			amount = new BigDecimal(amountStr);
@@ -155,66 +234,135 @@ public class ContentBarcodeEU implements IContent {
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>currency</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getCurrency() {
 		return StringUtils.isEmpty(currency) ? "EUR" : currency;
 	}
 
+	/**
+	 * <p>characterSet.</p>
+	 *
+	 * @param string a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU characterSet(String string) {
 		this.characterSet = string;
 		return this;		
 	}
 
+	/**
+	 * <p>identification.</p>
+	 *
+	 * @param string a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU identification(String string) {
 		this.identification = string;
 		return this;
 	}
 	
+	/**
+	 * <p>currency.</p>
+	 *
+	 * @param currency a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU currency(String currency) {
 		this.currency = currency;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>purpose</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getPurpose() {
 		return purpose;
 	}
 
+	/**
+	 * <p>purpose.</p>
+	 *
+	 * @param purpose a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU purpose(String purpose) {
 		this.purpose = purpose;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>remittanceReference</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getRemittanceReference() {
 		return remittanceReference;
 	}
 
+	/**
+	 * <p>remittanceReference.</p>
+	 *
+	 * @param remittanceReference a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU remittanceReference(String remittanceReference) {
 		this.remittanceReference = remittanceReference;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>remittanceText</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getRemittanceText() {
 		return remittanceText;
 	}
 
+	/**
+	 * <p>remittanceText.</p>
+	 *
+	 * @param remittanceText a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU remittanceText(String remittanceText) {
 		this.remittanceText = remittanceText;
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>information</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getInformation() {
 		return information;
 	}
 
+	/**
+	 * <p>information.</p>
+	 *
+	 * @param information a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 */
 	public ContentBarcodeEU information(String information) {
 		this.information = information;
 		return this;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getContent() throws UnsupportedEncodingException {
 		return new QRStringFormatEU().write(Arrays.asList(this));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		try {
@@ -225,6 +373,11 @@ public class ContentBarcodeEU implements IContent {
 		}
 	}
 
+	/**
+	 * <p>getHeader.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	@JsonIgnore
 	public String getHeader() {
 		StringBuffer sb = new StringBuffer();
@@ -238,6 +391,7 @@ public class ContentBarcodeEU implements IContent {
 		return sb.toString();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Error> check() {
 		List<Error> result = new ArrayList();
@@ -259,12 +413,14 @@ public class ContentBarcodeEU implements IContent {
 		return result;
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public boolean isOK() {
 		return check().isEmpty();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void clean() {
 		bic = "";
@@ -279,6 +435,8 @@ public class ContentBarcodeEU implements IContent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Used to define additional output information: e.g page format, picture type..
 	 */
 	@JsonIgnore
@@ -287,12 +445,14 @@ public class ContentBarcodeEU implements IContent {
 		return this.properties;
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Collection<String> getPrefix() {
 		return Arrays.asList("BCD");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IContent parse(String str) throws FormatException {
 		return new QRStringFormatEU().parse(str, this);
@@ -300,8 +460,8 @@ public class ContentBarcodeEU implements IContent {
 
 	/**
 	 * Provide the content as line separated list of parameter name : value
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getNameValues() {
@@ -316,11 +476,13 @@ public class ContentBarcodeEU implements IContent {
 	}
 
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getContentType() {
 		return this.getClass().getSimpleName();
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel) throws UnsupportedEncodingException, BarcodeException, IOException {
@@ -332,6 +494,7 @@ public class ContentBarcodeEU implements IContent {
 	}
 
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Map<String, Object> getDataMap() {
@@ -350,6 +513,7 @@ public class ContentBarcodeEU implements IContent {
 		return map;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String, Object> record) throws FormatException, ParseException {		
 		this.name = StringUtils.str(record.get("Name"));
@@ -386,12 +550,14 @@ public class ContentBarcodeEU implements IContent {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setTest(boolean test) {
 		this.test = test;
 		
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isTest() {
 		return this.test;

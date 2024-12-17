@@ -16,20 +16,27 @@ import ch.swissqr.utils.StringUtils;
  * Serialization and Deserialization of the standard text format as defined in
  * the specificaiton. However the standard system string encoding is used which
  * is usually (UTF8)
- * 
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class QRStringFormatEU implements IFormat {
 	private final static Logger LOG = Logger.getLogger(QRStringFormatEU.class);
 	//final static public String CRLF = System.lineSeparator(); // "\\r\\n";
 
+	/** {@inheritDoc} */
 	@Override
 	public List<IContent> read(String contentString) throws FormatException, BarcodeException {
 		return parseList(contentString);
 	}
 
+	/**
+	 * <p>parseList.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public List<IContent> parseList(String str) throws FormatException, BarcodeException {
 		// remove all cr
 		str = str.replaceAll("\\r", "");
@@ -44,6 +51,14 @@ public class QRStringFormatEU implements IFormat {
 		return result;
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @param eu a {@link ch.swissqr.content.ContentBarcodeEU} object
+	 * @return a {@link ch.swissqr.content.IContent} object
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 */
 	public IContent parse(String str, ContentBarcodeEU eu) throws FormatException {
 		if (StringUtils.isEmpty(str)) {
 			return null;
@@ -86,6 +101,7 @@ public class QRStringFormatEU implements IFormat {
 
 
 
+	/** {@inheritDoc} */
 	@Override
 	public String write(List<IContent> list) {
 		StringBuffer sb = new StringBuffer();

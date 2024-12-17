@@ -21,53 +21,72 @@ import ch.swissqr.barcode.ErrorCorrectionLevel;
 
 /**
  * A simple QR barcode which can represent any string
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public abstract class ContentBase implements IContent {
 	private String content="";
 	private Properties properties = new Properties();
 	private boolean test = false;
 
+	/**
+	 * <p>Constructor for ContentBase.</p>
+	 */
 	public ContentBase() {}
 	
+	/**
+	 * <p>Constructor for ContentBase.</p>
+	 *
+	 * @param content a {@link java.lang.String} object
+	 */
 	public ContentBase(String content) {
 		this.content = content;
 	}
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public boolean isOK() {
 		return !StringUtils.isEmpty(content);
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public String getContent() throws UnsupportedEncodingException {
 		return content;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void clean() {
 		content="";		
 	}
 	
+	/**
+	 * <p>Setter for the field <code>content</code>.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 */
 	public void setContent(String str) {
 		this.content = str;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Error> check() {
 		return Arrays.asList();
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return this.content;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Used to define additional output information: e.g page format, picture type..
 	 */
 	@JsonIgnore
@@ -76,6 +95,7 @@ public abstract class ContentBase implements IContent {
 		return this.properties;
 	}
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Collection<String> getPrefix(){
@@ -83,6 +103,7 @@ public abstract class ContentBase implements IContent {
 		return Arrays.asList();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IContent parse(String content)  {
 		 this.content = content;
@@ -90,12 +111,14 @@ public abstract class ContentBase implements IContent {
 	}
 
 
+	/** {@inheritDoc} */
 	@Override
 	public String getContentType() {
 		return this.getClass().getSimpleName();
 	}
 	
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel)
@@ -104,6 +127,7 @@ public abstract class ContentBase implements IContent {
 		return barcode.createImage(this.getContent(), format);
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String, Object> values) {
 		String fileName = (String) values.get("filename");
@@ -125,11 +149,13 @@ public abstract class ContentBase implements IContent {
 	}
 
 	
+	/** {@inheritDoc} */
 	@Override
 	public void setTest(boolean test) {
 		this.test = test;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public boolean isTest() {
 		return this.test;

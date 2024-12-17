@@ -19,9 +19,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Creates a QR barcode which contains a e-mail address
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class ContentMail extends ContentBase implements IContent {
 	// mailto:test@gmail.com?subject=Test%20Subject&amp;body=This%20is%20a%20test.
@@ -29,26 +28,40 @@ public class ContentMail extends ContentBase implements IContent {
 	private String subject;
 	private String message;
 
+	/**
+	 * <p>Constructor for ContentMail.</p>
+	 *
+	 * @param mailAddress a {@link java.lang.String} object
+	 * @param subject a {@link java.lang.String} object
+	 * @param msg a {@link java.lang.String} object
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 */
 	public ContentMail(String mailAddress, String subject, String msg) throws UnsupportedEncodingException {
 		this.mailAddress = mailAddress;
 		this.subject = subject;
 		this.message = msg;
 	}
 
+	/**
+	 * <p>Constructor for ContentMail.</p>
+	 */
 	public ContentMail() {
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getContent() throws UnsupportedEncodingException {
 		return "mailto:" + encode(mailAddress) + "?subject=" + encode(subject) + "&body=" + encode(message);
 	}
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Collection<String> getPrefix() {
 		return Arrays.asList("mailto:");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IContent parse(String str)  {
 		try {
@@ -75,30 +88,61 @@ public class ContentMail extends ContentBase implements IContent {
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>mailAddress</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getMailAddress() {
 		return mailAddress;
 	}
 
+	/**
+	 * <p>Setter for the field <code>mailAddress</code>.</p>
+	 *
+	 * @param mailAddress a {@link java.lang.String} object
+	 */
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
 
+	/**
+	 * <p>Getter for the field <code>subject</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getSubject() {
 		return subject;
 	}
 
+	/**
+	 * <p>Setter for the field <code>subject</code>.</p>
+	 *
+	 * @param subject a {@link java.lang.String} object
+	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
+	/**
+	 * <p>Getter for the field <code>message</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * <p>Setter for the field <code>message</code>.</p>
+	 *
+	 * @param message a {@link java.lang.String} object
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel) throws UnsupportedEncodingException, BarcodeException, IOException {
@@ -106,6 +150,7 @@ public class ContentMail extends ContentBase implements IContent {
 		return barcode.createImage(this.getContent(), format);
 	}
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Map<String, Object> getDataMap() {
@@ -117,6 +162,7 @@ public class ContentMail extends ContentBase implements IContent {
 		return result;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String,Object> record) {
 		super.setDataMap(record);

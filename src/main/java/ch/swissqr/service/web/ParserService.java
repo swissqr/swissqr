@@ -33,9 +33,8 @@ import ch.swissqr.service.web.usage.UsageValidator;
 /**
  * Parsing of barcode files: We support zip files, pdf files and gif, jpeg and
  * png image files
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 
 @Path("/service/parser")
@@ -45,19 +44,18 @@ public class ParserService {
 
 	/**
 	 * Returns the raw text content of one or multiple image, pdf and zip files.
-	 * 	  
-	 * @param body
-	 * @return
-	 * @throws IOException
-	 * @throws BarcodeException
-	 * @throws LicenceError
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param body a {@link org.glassfish.jersey.media.multipart.FormDataMultiPart} object
+	 * @return a {@link java.util.List} object
 	 */
 
 	@POST
 	@Path("/text")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-
 	public List<String> imagesToString(FormDataMultiPart body)
 			throws IOException, BarcodeException, LicenceError {
 
@@ -105,18 +103,16 @@ public class ParserService {
 
 	/**
 	 * Returns the content objects of one or multiple image, pdf and zip files.
-	 * 
-	 * @param body
-	 * @return
-	 * @throws Exception
+	 *
+	 * @throws java.lang.Exception
+	 * @param body a {@link org.glassfish.jersey.media.multipart.FormDataMultiPart} object
+	 * @return a {@link java.util.List} object
 	 */
 
 	@POST
 	@Path("/objects")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-
-
 	public List<IContent> imageToObjects(FormDataMultiPart body)
 	throws Exception {
 		LOG.info("imageToObjects");

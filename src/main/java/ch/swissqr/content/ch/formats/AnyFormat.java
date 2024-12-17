@@ -11,11 +11,21 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Converts different String representations into a list of ContentBarcodeCH objects
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class AnyFormat {
 
+	/**
+	 * <p>read.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws java.text.ParseException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public static List<IContent> read(String str) throws FormatException, IOException, ParseException, BarcodeException {
 		CharSequence s = "\\n";
 		str = str.trim().replace(s, System.lineSeparator());

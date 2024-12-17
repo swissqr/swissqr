@@ -12,12 +12,10 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Address information for Creditor, Ultimate creditor and Ultimate debtor.
- * We support Structured and Unstructured Addresses. 
- * 
- * @author pschatzmann
+ * We support Structured and Unstructured Addresses.
  *
+ * @author pschatzmann
  */
-
 public class Address  {
 	private static Map<String, String> countries = new HashMap<String, String>();
 	private static IAddressParser addressParser = new AddressParser();
@@ -36,7 +34,8 @@ public class Address  {
 
 	/**
 	 * Defines the address by parsing the full address string
-	 * @param addressString
+	 *
+	 * @param addressString a {@link java.lang.String} object
 	 */
 	public Address(String addressString) {
 		this.setAddressPrinted(addressString);
@@ -45,10 +44,14 @@ public class Address  {
 	
 	/**
 	 * Defines the unstructured address
-	 * @param name
-	 * @param postalCode
-	 * @param city
-	 * @param country
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @param street a {@link java.lang.String} object
+	 * @param nr a {@link java.lang.String} object
+	 * @param postalCode a {@link java.lang.String} object
+	 * @param city a {@link java.lang.String} object
+	 * @param country a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address structured(String name, String street, String nr, String postalCode, String city, String country) {
 		this.name(name);
@@ -62,6 +65,12 @@ public class Address  {
 
 	/**
 	 * Defines the structured address
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @param line1 a {@link java.lang.String} object
+	 * @param line2 a {@link java.lang.String} object
+	 * @param country a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address unstructured(String name, String line1, String line2, String country) {
 		this.name(name);
@@ -73,7 +82,8 @@ public class Address  {
 
 	/**
 	 * Determines the Name
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getName() {
 		return name;
@@ -81,8 +91,9 @@ public class Address  {
 
 	/**
 	 * Defines the Name
-	 * @param name
-	 * @return
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address name(String name) {
 		this.name = name;
@@ -91,7 +102,8 @@ public class Address  {
 	
 	/**
 	 * Determines the address line 1  (Street + House number)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getAddressLine1() {
 		if (getAddressType()==AddressType.U) {
@@ -103,8 +115,9 @@ public class Address  {
 
 	/**
 	 * Defines the address line 1 (for unstructured address only)
-	 * @param line1
-	 * @return
+	 *
+	 * @param line1 a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address addressLine1(String line1) {
 		this.setAddressType(AddressType.U);
@@ -114,9 +127,9 @@ public class Address  {
 
 	/**
 	 * Determines the address line 2 (postal code + city)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
-	
 	public String getAddressLine2() {
 		StringBuffer sb = new StringBuffer();
 		if (getAddressType()==AddressType.U) {
@@ -136,8 +149,9 @@ public class Address  {
 
 	/**
 	 * Defines the address line 2 (for unstructured address only)
-	 * @param line1
-	 * @return
+	 *
+	 * @param line1 a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address addressLine2(String line1) {
 		this.setAddressType(AddressType.U);
@@ -148,7 +162,8 @@ public class Address  {
 
 	/**
 	 * Determines the Street  (for structured address only)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getStreet() {
 		return street;
@@ -156,8 +171,9 @@ public class Address  {
 
 	/**
 	 * Defines the street  (for structured address only)
-	 * @param street
-	 * @return
+	 *
+	 * @param street a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address street(String street) {
 		this.setAddressType(AddressType.S);
@@ -167,7 +183,8 @@ public class Address  {
 
 	/**
 	 * Determines the house number  (for structured address only)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getHouseNumber() {
 		return houseNumber;
@@ -175,8 +192,9 @@ public class Address  {
 
 	/**
 	 * Defines the building number  (for structured address only)
-	 * @param houseNumber
-	 * @return
+	 *
+	 * @param houseNumber a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address houseNumber(String houseNumber) {
 		this.setAddressType(AddressType.S);
@@ -186,7 +204,8 @@ public class Address  {
 
 	/**
 	 * Determines the postal code  (for structured address only)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getPostalCode() {
 		return postalCode;
@@ -194,8 +213,9 @@ public class Address  {
 
 	/**
 	 * Defines the postal code (for structured address only)
-	 * @param postalCode
-	 * @return
+	 *
+	 * @param postalCode a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address postalCode(String postalCode) {
 		this.setAddressType(AddressType.S);
@@ -205,7 +225,8 @@ public class Address  {
 
 	/**
 	 * Determines the country ISO code
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getCountryISO() {
 		return StringUtils.str(countryISO);
@@ -213,8 +234,9 @@ public class Address  {
 
 	/**
 	 * Defines the country ISO code
-	 * @param countryISO
-	 * @return
+	 *
+	 * @param countryISO a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address countryISO(String countryISO) {
 		this.countryISO = countryISO;
@@ -223,8 +245,9 @@ public class Address  {
 
 	/**
 	 * Defines the country by name. We will look up the related ISO code)
-	 * @param country
-	 * @return
+	 *
+	 * @param country a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address country(String country) {
 		this.countryISO = country.length()==2 ? country : AddressParser.getCountryMap().get(country.toLowerCase());;
@@ -233,7 +256,8 @@ public class Address  {
 
 	/**
 	 * Determines the city (for structured address only)
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getCity() {
 		return city;
@@ -241,8 +265,9 @@ public class Address  {
 
 	/**
 	 * Defines the city (for structured address only)
-	 * @param city
-	 * @return
+	 *
+	 * @param city a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address city(String city) {
 		this.setAddressType(AddressType.S);
@@ -252,8 +277,9 @@ public class Address  {
 
 	/**
 	 * Checks if the address is complete
-	 * @param addressType
-	 * @return
+	 *
+	 * @param addressType a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
 	 */
 	public List<Error> check(String addressType) {
 		List<Error> result = new ArrayList();
@@ -270,12 +296,19 @@ public class Address  {
 		return result;
 	}
 
+	/**
+	 * <p>isDefined.</p>
+	 *
+	 * @return a boolean
+	 */
 	@JsonIgnore
 	public boolean isDefined() {
 		return !StringUtils.isEmpty(this.name);
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Returns information in IBAN format
 	 */
 	@Override
@@ -298,6 +331,12 @@ public class Address  {
 		return sb.toString();
 	}
 
+	/**
+	 * <p>toStringExt.</p>
+	 *
+	 * @param prefix a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public String toStringExt(String prefix) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(prefix + "Name: ");
@@ -323,7 +362,8 @@ public class Address  {
 
 	/**
 	 * Parses a full address to fill the address information
-	 * @param str
+	 *
+	 * @param str a {@link java.lang.String} object
 	 */
 	public void setAddressPrinted(String str) {
 		getAddressParser().parse(str, this);
@@ -331,7 +371,8 @@ public class Address  {
 
 	/**
 	 * Returns the full printable address separated by CRLF
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getAddressPrinted() {
@@ -340,7 +381,8 @@ public class Address  {
 
 	/**
 	 * Return the full printable address lines
-	 * @return
+	 *
+	 * @return an array of {@link java.lang.String} objects
 	 */
 	@JsonIgnore
 	public String[] getAddressLines() {
@@ -349,8 +391,9 @@ public class Address  {
 
 	/**
 	 * Return the full printable address lines where the filess are separated by the inicated delimiter
-	 * @param delim
-	 * @return
+	 *
+	 * @param delim a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	@JsonIgnore
 	public String getAddressPrinted(String delim) {
@@ -365,8 +408,9 @@ public class Address  {
 	
 	/**
 	 * Creates an address from a formatted address string
-	 * @param formattedAddress
-	 * @return
+	 *
+	 * @param formattedAddress a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public static Address createAddress(String formattedAddress) {
 		Address result = new Address();
@@ -376,8 +420,9 @@ public class Address  {
 
 	/**
 	 * Creates an address from a formatted address string
-	 * @param swissQRAddress
-	 * @return
+	 *
+	 * @return Address
+	 * @param swissQRAddress a {@link java.util.List} object
 	 */
 	public static Address createAddress(List<String> swissQRAddress) {
 		StringBuffer sb = new StringBuffer();
@@ -390,7 +435,8 @@ public class Address  {
 	
 	/**
 	 * Determines the address type (S for structured, U for unstructured)
-	 * @return
+	 *
+	 * @return AddressType
 	 */
 	public AddressType getAddressType() {
 		if (addressType==null) {
@@ -406,28 +452,37 @@ public class Address  {
 		return addressType;
 	}
 
+	/**
+	 * <p>Setter for the field <code>addressType</code>.</p>
+	 *
+	 * @param addressType a {@link ch.swissqr.content.ch.AddressType} object
+	 */
 	protected void setAddressType(AddressType addressType) {
 		this.addressType  = addressType;
 	}
 
-	/** 
+	/**
 	 * Determines the address parser which is used to translate a string into an address
-	 * @return
+	 *
+	 * @return a {@link ch.swissqr.content.ch.IAddressParser} object
 	 */
 	public static IAddressParser getAddressParser() {
 		return addressParser;
 	}
 
-	/** 
+	/**
 	 * Defines the address parser which is used to translate a string into an address
+	 *
+	 * @param addressParser a {@link ch.swissqr.content.ch.IAddressParser} object
 	 */
 	public static void setAddressParser(IAddressParser addressParser) {
 		Address.addressParser = addressParser;
 	}
 
-	/** 
+	/**
 	 * Standard Java bean setter to define the name
-	 * @param name
+	 *
+	 * @param name a {@link java.lang.String} object
 	 */
 	public void setName(String name) {
 		this.name(name);
@@ -435,7 +490,8 @@ public class Address  {
 
 	/**
 	 * Standard Java bean setter to define the street
-	 * @param street
+	 *
+	 * @param street a {@link java.lang.String} object
 	 */
 	public void setStreet(String street) {
 		this.street(street);
@@ -443,7 +499,8 @@ public class Address  {
 
 	/**
 	 * Standard Java bean setter to define the house number
-	 * @param houseNumber
+	 *
+	 * @param houseNumber a {@link java.lang.String} object
 	 */
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber(houseNumber);
@@ -451,7 +508,8 @@ public class Address  {
 
 	/**
 	 * Standard Java bean setter to define the zip code
-	 * @param postalCode
+	 *
+	 * @param postalCode a {@link java.lang.String} object
 	 */
 	public void setPostalCode(String postalCode) {
 		this.postalCode(postalCode);
@@ -459,7 +517,8 @@ public class Address  {
 
 	/**
 	 * Standard Java bean setter to define the location
-	 * @param city
+	 *
+	 * @param city a {@link java.lang.String} object
 	 */
 	public void setCity(String city) {
 		this.city(city);
@@ -467,17 +526,19 @@ public class Address  {
 
 	/**
 	 * Standard Java bean setter to define the ISO code for the country of the address
-	 * @param countryISO
+	 *
+	 * @param countryISO a {@link java.lang.String} object
 	 */
 	public void setCountryISO(String countryISO) {
 		this.countryISO(countryISO);
 	}
 
 	/**
-	 * Defines the address type. This is usually not necessary because it is 
+	 * Defines the address type. This is usually not necessary because it is
 	 * determined by the context.
-	 * @param type
-	 * @return
+	 *
+	 * @param type a {@link ch.swissqr.content.ch.AddressType} object
+	 * @return a {@link ch.swissqr.content.ch.Address} object
 	 */
 	public Address addressType(AddressType type) {
 		this.addressType = type;

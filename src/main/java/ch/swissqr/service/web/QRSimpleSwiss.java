@@ -48,9 +48,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Simple REST webserivces for the processing of one single Swiss QR barcode
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 
 @Path("/service/simpleswissqr")
@@ -62,14 +61,61 @@ public class QRSimpleSwiss {
 		en, de, it, fr
 	};
 
+	/**
+	 * <p>Constructor for QRSimpleSwiss.</p>
+	 */
 	public QRSimpleSwiss() {
 		LOG.info("SwissQRSimple");
 	}
 
 	/**
 	 * Check the completeness and correctness of the swiss barcode content
-	 * 
-
+	 *
+	 * @param iban a {@link java.lang.String} object
+	 * @param creditor a {@link java.lang.String} object
+	 * @param crName a {@link java.lang.String} object
+	 * @param crStreet a {@link java.lang.String} object
+	 * @param creditorAdressLine1 a {@link java.lang.String} object
+	 * @param creditorAdressLine2 a {@link java.lang.String} object
+	 * @param crHouseNumber a {@link java.lang.String} object
+	 * @param crPostalCode a {@link java.lang.String} object
+	 * @param crCity a {@link java.lang.String} object
+	 * @param crCountry a {@link java.lang.String} object
+	 * @param ultimateCreditor a {@link java.lang.String} object
+	 * @param ucName a {@link java.lang.String} object
+	 * @param ucStreet a {@link java.lang.String} object
+	 * @param ultimateCreditorAdressLine1 a {@link java.lang.String} object
+	 * @param utlimateCreditorAdressLine2 a {@link java.lang.String} object
+	 * @param ucHouseNumber a {@link java.lang.String} object
+	 * @param ucPostalCode a {@link java.lang.String} object
+	 * @param ucCity a {@link java.lang.String} object
+	 * @param ucCountry a {@link java.lang.String} object
+	 * @param amount a {@link java.lang.Double} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param dueDateString a {@link java.lang.String} object
+	 * @param debitor a {@link java.lang.String} object
+	 * @param debName a {@link java.lang.String} object
+	 * @param debStreet a {@link java.lang.String} object
+	 * @param debitorAdressLine1 a {@link java.lang.String} object
+	 * @param debitorAdressLine2 a {@link java.lang.String} object
+	 * @param debHouseNumber a {@link java.lang.String} object
+	 * @param debPostalCode a {@link java.lang.String} object
+	 * @param debCity a {@link java.lang.String} object
+	 * @param debCountry a {@link java.lang.String} object
+	 * @param referenceType a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 * @param reference a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 * @param billInformation a {@link java.lang.String} object
+	 * @param unstructuredMessage a {@link java.lang.String} object
+	 * @param alternativeSchema a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters a {@link java.lang.String} object
+	 * @param alternativeScheme1 a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters1 a {@link java.lang.String} object
+	 * @param uriDetails a {@link javax.ws.rs.core.UriInfo} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
+	 * @throws java.text.ParseException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
 	 */
 	@GET
 	@Path("/check")
@@ -129,7 +175,55 @@ public class QRSimpleSwiss {
 	/**
 	 * Generates a swiss QR Barcode: If the provided information has issues (see
 	 * check) we generate a simple QR code (w/o a swiss cross in the center)
-	 * 
+	 *
+	 * @param uriDetails a {@link javax.ws.rs.core.UriInfo} object
+	 * @param iban a {@link java.lang.String} object
+	 * @param creditor a {@link java.lang.String} object
+	 * @param creditorAdressLine1 a {@link java.lang.String} object
+	 * @param creditorAdressLine2 a {@link java.lang.String} object
+	 * @param crName a {@link java.lang.String} object
+	 * @param crStreet a {@link java.lang.String} object
+	 * @param crHouseNumber a {@link java.lang.String} object
+	 * @param crPostalCode a {@link java.lang.String} object
+	 * @param crCity a {@link java.lang.String} object
+	 * @param crCountry a {@link java.lang.String} object
+	 * @param ultimateCreditor a {@link java.lang.String} object
+	 * @param ucName a {@link java.lang.String} object
+	 * @param ultimateCreditorAdressLine1 a {@link java.lang.String} object
+	 * @param utlimateCreditorAdressLine2 a {@link java.lang.String} object
+	 * @param ucStreet a {@link java.lang.String} object
+	 * @param ucHouseNumber a {@link java.lang.String} object
+	 * @param ucPostalCode a {@link java.lang.String} object
+	 * @param ucCity a {@link java.lang.String} object
+	 * @param ucCountry a {@link java.lang.String} object
+	 * @param amount a {@link java.lang.Double} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param dueDateString a {@link java.lang.String} object
+	 * @param debitor a {@link java.lang.String} object
+	 * @param debName a {@link java.lang.String} object
+	 * @param debitorAdressLine1 a {@link java.lang.String} object
+	 * @param debitorAdressLine2 a {@link java.lang.String} object
+	 * @param debStreet a {@link java.lang.String} object
+	 * @param debHouseNumber a {@link java.lang.String} object
+	 * @param debPostalCode a {@link java.lang.String} object
+	 * @param debCity a {@link java.lang.String} object
+	 * @param debCountry a {@link java.lang.String} object
+	 * @param referenceType a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 * @param reference a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 * @param billInformation a {@link java.lang.String} object
+	 * @param unstructuredMessage a {@link java.lang.String} object
+	 * @param alternativeSchema a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters a {@link java.lang.String} object
+	 * @param alternativeScheme1 a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters1 a {@link java.lang.String} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.text.ParseException if any.
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
 	 */
 	@GET
 	@Path("/barcode")
@@ -195,10 +289,11 @@ public class QRSimpleSwiss {
 	
 	/**
 	 * Encoded content for barcode. We deconde and forward the request to the barcode service
-	 * @param encoded
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws URISyntaxException 
+	 *
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws java.net.URISyntaxException
+	 * @param encoded a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
 	 */
 	@GET
 	@Path("/barcode/{encoded}")
@@ -212,6 +307,17 @@ public class QRSimpleSwiss {
 	    return Response.seeOther( uri ).build();
 	}
 	
+	/**
+	 * <p>simpleBarcode.</p>
+	 *
+	 * @param map a {@link javax.ws.rs.core.MultivaluedMap} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.text.ParseException if any.
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
+	 */
 	@POST
 	@Path("/barcode")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -234,8 +340,58 @@ public class QRSimpleSwiss {
 
 	/**
 	 * Generates a payment slip which contains a QR barcode
-	 * 
-
+	 *
+	 * @param uriDetails a {@link javax.ws.rs.core.UriInfo} object
+	 * @param pageFormat a {@link ch.swissqr.paymentslip.PaymentSlipPDF.Format} object
+	 * @param printLintes a boolean
+	 * @param printReceipt a boolean
+	 * @param language a {@link ch.swissqr.service.web.QRSimpleSwiss.Langauge} object
+	 * @param iban a {@link java.lang.String} object
+	 * @param creditor a {@link java.lang.String} object
+	 * @param crName a {@link java.lang.String} object
+	 * @param creditorAdressLine1 a {@link java.lang.String} object
+	 * @param creditorAdressLine2 a {@link java.lang.String} object
+	 * @param crStreet a {@link java.lang.String} object
+	 * @param crHouseNumber a {@link java.lang.String} object
+	 * @param crPostalCode a {@link java.lang.String} object
+	 * @param crCity a {@link java.lang.String} object
+	 * @param crCountry a {@link java.lang.String} object
+	 * @param ultimateCreditor a {@link java.lang.String} object
+	 * @param ucName a {@link java.lang.String} object
+	 * @param ucStreet a {@link java.lang.String} object
+	 * @param ultimateCreditorAdressLine1 a {@link java.lang.String} object
+	 * @param utlimateCreditorAdressLine2 a {@link java.lang.String} object
+	 * @param ucHouseNumber a {@link java.lang.String} object
+	 * @param ucPostalCode a {@link java.lang.String} object
+	 * @param ucCity a {@link java.lang.String} object
+	 * @param ucCountry a {@link java.lang.String} object
+	 * @param amount a {@link java.lang.Double} object
+	 * @param currency a {@link java.lang.String} object
+	 * @param dueDateString a {@link java.lang.String} object
+	 * @param debitor a {@link java.lang.String} object
+	 * @param debName a {@link java.lang.String} object
+	 * @param debitorAdressLine1 a {@link java.lang.String} object
+	 * @param debitorAdressLine2 a {@link java.lang.String} object
+	 * @param debStreet a {@link java.lang.String} object
+	 * @param debHouseNumber a {@link java.lang.String} object
+	 * @param debPostalCode a {@link java.lang.String} object
+	 * @param debCity a {@link java.lang.String} object
+	 * @param debCountry a {@link java.lang.String} object
+	 * @param referenceType a {@link ch.swissqr.content.ch.PaymentReference.ReferenceType} object
+	 * @param reference a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 * @param billInformation a {@link java.lang.String} object
+	 * @param unstructuredMessage a {@link java.lang.String} object
+	 * @param alternativeSchema a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters a {@link java.lang.String} object
+	 * @param alternativeScheme1 a {@link java.lang.String} object
+	 * @param alternativeSchemaParameters1 a {@link java.lang.String} object
+	 * @param licenseKey a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.text.ParseException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
 	 */
 	@GET
 	@Path("/paymentslip")
@@ -307,6 +463,17 @@ public class QRSimpleSwiss {
 	}
 	
 	
+	/**
+	 * <p>simplePaymentslip.</p>
+	 *
+	 * @param map a {@link javax.ws.rs.core.MultivaluedMap} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.text.ParseException if any.
+	 * @throws java.io.UnsupportedEncodingException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws ch.swissqr.errors.LicenceError if any.
+	 */
 	@POST
 	@Path("/paymentslip")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -354,14 +521,14 @@ public class QRSimpleSwiss {
 	/**
 	 * Returns the content of the barcode image file. If it is a Swiss Barcode we
 	 * convert the content to a readable "paramtername : content" text format
-	 * 
-	 * @param body
-	 * @return
-	 * @throws IOException
-	 * @throws BarcodeException
-	 * @throws LicenceError 
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws ch.swissqr.errors.LicenceError
+	 * @param body a {@link org.glassfish.jersey.media.multipart.FormDataMultiPart} object
+	 * @return a {@link java.lang.String} object
 	 */
-	
+
 	@POST
 	@Path("/imageToText")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -394,6 +561,12 @@ public class QRSimpleSwiss {
 		return result.toString();
 	}
 
+	/**
+	 * <p>checkFileType.</p>
+	 *
+	 * @param fileDetail a {@link org.glassfish.jersey.media.multipart.FormDataContentDisposition} object
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public static void checkFileType(FormDataContentDisposition fileDetail) throws BarcodeException {
 		String fileName = fileDetail.getFileName().toLowerCase();
 		if (fileName.endsWith(".png") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
@@ -404,6 +577,12 @@ public class QRSimpleSwiss {
 		}
 	}
 
+	/**
+	 * <p>toMap.</p>
+	 *
+	 * @param queryParameters a {@link javax.ws.rs.core.MultivaluedMap} object
+	 * @return a {@link java.util.Map} object
+	 */
 	public static Map toMap(MultivaluedMap<String, String> queryParameters) {
 		Map result = new TreeMap();
 		for (Entry<String, List<String>> e : queryParameters.entrySet()) {

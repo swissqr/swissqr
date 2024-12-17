@@ -25,22 +25,29 @@ import ch.swissqr.utils.StringUtils;
  * Serialization and Deserialization of the standard text format as defined in
  * the specification. However the standard system string encoding is used which
  * is usually (UTF8)
- * 
+ *
  * Windows is using CRLF to delimit lines. Linux and OSx are using just LF
  * We remove all CRs so that we can use the same logic in all environments
- * 
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class QRStringFormatSwiss implements IFormat {
 	private final static Logger LOG = Logger.getLogger(QRStringFormatSwiss.class);
 
+	/** {@inheritDoc} */
 	@Override
 	public List<IContent> read(String contentString) throws FormatException, BarcodeException {
 		return parseList(contentString);
 	}
 
+	/**
+	 * <p>parseList.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public List<IContent> parseList(String str) throws FormatException, BarcodeException {
 		// remove all cr
 		str = str.replaceAll("\\r", "");
@@ -55,6 +62,14 @@ public class QRStringFormatSwiss implements IFormat {
 		return result;
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.IContent} object
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public IContent parse(String str) throws FormatException, BarcodeException {
 		if (StringUtils.isEmpty(str)) {
 			return null;
@@ -189,6 +204,7 @@ public class QRStringFormatSwiss implements IFormat {
 		return result;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String write(List<IContent> list) {
 		StringBuffer sb = new StringBuffer();

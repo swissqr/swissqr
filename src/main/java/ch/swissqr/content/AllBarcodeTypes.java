@@ -9,11 +9,9 @@ import ch.swissqr.errors.BarcodeException;
 
 /**
  * Translates barcode content strings into the corresponding java objects
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
-
 public class AllBarcodeTypes {
 	static Collection<IContent> emptyContentObjects = Arrays.asList(new ContentBarcodeCH(), new ContentBarcodeEU(),
 			new ContentMail(), new ContentSMS(), new ContentTel(), new ContentString());
@@ -22,6 +20,15 @@ public class AllBarcodeTypes {
 		return emptyContentObjects;
 	}
 
+	/**
+	 * <p>getIContent.</p>
+	 *
+	 * @param str a {@link java.lang.String} object
+	 * @return a {@link ch.swissqr.content.IContent} object
+	 * @throws java.lang.InstantiationException if any.
+	 * @throws java.lang.IllegalAccessException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public static IContent getIContent(String str)
 			throws InstantiationException, IllegalAccessException, BarcodeException {
 		for (IContent empty : getAllBarcodes()) {
@@ -38,6 +45,15 @@ public class AllBarcodeTypes {
 		return null;
 	}
 
+	/**
+	 * <p>getIContentList.</p>
+	 *
+	 * @param strList a {@link java.util.Collection} object
+	 * @return a {@link java.util.List} object
+	 * @throws java.lang.InstantiationException if any.
+	 * @throws java.lang.IllegalAccessException if any.
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 */
 	public static List<IContent> getIContentList(Collection<String> strList)
 			throws InstantiationException, IllegalAccessException, BarcodeException {
 		List<IContent> result = new ArrayList();

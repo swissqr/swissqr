@@ -25,14 +25,16 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Serialization and Deserialization of Json
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class JsonFormat implements IFormat  {
 	private static final Logger LOG = Logger.getLogger(JsonFormat.class);
 	private ObjectMapper mapper = null;
 
+	/**
+	 * <p>Constructor for JsonFormat.</p>
+	 */
 	public JsonFormat() {
 		mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -46,6 +48,7 @@ public class JsonFormat implements IFormat  {
 	 * @see
 	 * ch.swissqr.content.formats.IFormat#write(ch.swissqr.content.BarcodeContent)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	@Test
 	public String write(List<IContent> list) throws FormatException {
@@ -63,6 +66,7 @@ public class JsonFormat implements IFormat  {
 	 * 
 	 * @see ch.swissqr.content.formats.IFormat#read(java.lang.String)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	@Test
 	public List<IContent> read(String jsonInString) throws FormatException {

@@ -8,29 +8,28 @@ import ch.swissqr.utils.Error;
 
 /**
  * Interface to support different alternative schema implementations
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 @JsonDeserialize(as = AlternativeSchema.class)
 public interface IAlternativeSchema {
 	/**
 	 * The title which is printed on the Payment Slip
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getTitle();
 
 	/**
 	 * The content that is encoded in the bardoce and printed on the payment slip
-	 * 
-	 * @return
+	 *
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getContent();
 
 	/**
 	 * Validation
-	 * 
+	 *
 	 * @return list of errors
 	 */
 	public Collection<? extends Error> check();

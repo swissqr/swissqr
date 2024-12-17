@@ -2,9 +2,8 @@ package ch.swissqr.barcode;
 
 /**
  * Error Correction Levels for QR Codes
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public enum ErrorCorrectionLevel {
 
@@ -17,6 +16,7 @@ public enum ErrorCorrectionLevel {
 	/** H = ~30% correction */
 	H(0x02);
 
+	/** Constant <code>FOR_BITS</code> */
 	private static final ErrorCorrectionLevel[] FOR_BITS = { M, L, H, Q };
 
 	private final int bits;
@@ -25,11 +25,18 @@ public enum ErrorCorrectionLevel {
 		this.bits = bits;
 	}
 
+	/**
+	 * <p>Getter for the field <code>bits</code>.</p>
+	 *
+	 * @return a int
+	 */
 	public int getBits() {
 		return bits;
 	}
 
 	/**
+	 * <p>forBits.</p>
+	 *
 	 * @param bits
 	 *            int containing the two bits encoding a QR Code's error correction
 	 *            level

@@ -13,20 +13,32 @@ import org.apache.log4j.Logger;
 
 /**
  * Simple file server which is used to serve the swagger files
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 
 @Path("/")
 public class SwaggerService {
 	private final static Logger LOG = Logger.getLogger(SwaggerService.class);
 
+    /**
+     * <p>root.</p>
+     *
+     * @return a {@link javax.ws.rs.core.Response} object
+     */
     @GET
     public Response root() {
       return Response.seeOther(URI.create("/index.html")).build();
     }
 	
+	/**
+	 * <p>swagger.</p>
+	 *
+	 * @param fileName a {@link java.lang.String} object
+	 * @return a {@link javax.ws.rs.core.Response} object
+	 * @throws java.io.IOException if any.
+	 * @throws java.lang.Exception if any.
+	 */
 	@GET
 	@Path("/{fileName}")
 	public Response swagger(@PathParam("fileName")  String fileName) throws IOException, Exception {

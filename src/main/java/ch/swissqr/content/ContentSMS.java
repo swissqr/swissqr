@@ -16,31 +16,41 @@ import ch.swissqr.errors.BarcodeException;
 import ch.swissqr.utils.StringUtils;
 
 /**
- * Creates a QR barcode which contains a SMS 
- * 
- * @author pschatzmann
+ * Creates a QR barcode which contains a SMS
  *
+ * @author pschatzmann
  */
 public class ContentSMS extends ContentBase implements IContent {
 	// SMSTO:[RUFNUMMER]:[NACHRICHT]
 	private String telephoneNumber = "";
 	private String message = "";
 
+	/**
+	 * <p>Constructor for ContentSMS.</p>
+	 *
+	 * @param telNumber a {@link java.lang.String} object
+	 * @param message a {@link java.lang.String} object
+	 */
 	public ContentSMS(String telNumber, String message) {
 		super();
 		this.telephoneNumber = telNumber;
 		this.message = message;
 	}
 
+	/**
+	 * <p>Constructor for ContentSMS.</p>
+	 */
 	public ContentSMS() {
 	}
 
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Collection<String> getPrefix() {
 		return Arrays.asList("smsto:");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IContent parse(String str) {
 		String sa[] = str.split(":");
@@ -61,22 +71,43 @@ public class ContentSMS extends ContentBase implements IContent {
 		return this;
 	}
 
+	/**
+	 * <p>Getter for the field <code>telephoneNumber</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getTelephoneNumber() {
 		return telephoneNumber;
 	}
 
+	/**
+	 * <p>Setter for the field <code>telephoneNumber</code>.</p>
+	 *
+	 * @param telephoneNumber a {@link java.lang.String} object
+	 */
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
 
+	/**
+	 * <p>Getter for the field <code>message</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * <p>Setter for the field <code>message</code>.</p>
+	 *
+	 * @param message a {@link java.lang.String} object
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	@JsonIgnore
 	public BufferedImage toBarcode(String format, Double mm, ErrorCorrectionLevel errorCorrectionLevel) throws UnsupportedEncodingException, BarcodeException, IOException {
@@ -84,12 +115,14 @@ public class ContentSMS extends ContentBase implements IContent {
 		return barcode.createImage(this.getContent(), format);
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getContent() throws UnsupportedEncodingException {
 		this.setContent("smsto:" + this.telephoneNumber + ":" + this.message);
 		return super.getContent();
 	}
 	
+	/** {@inheritDoc} */
 	@JsonIgnore
 	@Override
 	public Map<String, Object> getDataMap() {
@@ -100,6 +133,7 @@ public class ContentSMS extends ContentBase implements IContent {
 		return result;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public void setDataMap(Map<String,Object> record) {
 		super.setDataMap(record);

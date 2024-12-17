@@ -35,9 +35,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Common functionality for all PDF documents
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class DocumentBase {
 	private static final Logger LOG = Logger.getLogger(DocumentBase.class);
@@ -53,9 +52,10 @@ public class DocumentBase {
 
 	/**
 	 * Opens the document from the indicated pdf file
-	 * @param file
-	 * @throws InvalidPasswordException
-	 * @throws IOException
+	 *
+	 * @throws org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException
+	 * @throws java.io.IOException
+	 * @param file a {@link java.io.File} object
 	 */
 	public DocumentBase(File file) throws InvalidPasswordException, IOException {
 		document = PDDocument.load(file);
@@ -63,10 +63,10 @@ public class DocumentBase {
 
 	/**
 	 * Opens a document from the input stream which contains the PDF document
-	 * 
-	 * @param is
-	 * @throws InvalidPasswordException
-	 * @throws IOException
+	 *
+	 * @throws org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException
+	 * @throws java.io.IOException
+	 * @param is a {@link java.io.InputStream} object
 	 */
 	public DocumentBase(InputStream is) throws InvalidPasswordException, IOException {
 		document = PDDocument.load(is);
@@ -74,7 +74,8 @@ public class DocumentBase {
 
 	/**
 	 * Returns the PDF document
-	 * @return
+	 *
+	 * @return a {@link org.apache.pdfbox.pdmodel.PDDocument} object
 	 */
 	public PDDocument getDocument() {
 		return this.document;
@@ -82,8 +83,9 @@ public class DocumentBase {
 
 	/**
 	 * Defines the PDF document
-	 * @param doc
-	 * @throws BarcodeException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @param doc a {@link org.apache.pdfbox.pdmodel.PDDocument} object
 	 */
 	public void setDocument(PDDocument doc) throws BarcodeException {
 		if (document!=null) {
@@ -99,8 +101,9 @@ public class DocumentBase {
 
 	/**
 	 * Determines the string content of all QR barcodes
-	 * @return
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @return a {@link java.util.List} object
 	 */
 	public List<String> getBarcodeStrings() throws IOException {
 		errors.clear();
@@ -121,6 +124,11 @@ public class DocumentBase {
 		return result;
 	}
 	
+	/**
+	 * <p>Getter for the field <code>errors</code>.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<String> getErrors()  {
 		return this.errors;
 	}
@@ -129,9 +137,9 @@ public class DocumentBase {
 
 	/**
 	 * Returns all images from the pdf document
-	 * 
-	 * @return
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @return a {@link java.util.List} object
 	 */
 	public List<PDImage> getImages() throws IOException {
 		List<PDImage> result = new ArrayList();
@@ -151,11 +159,11 @@ public class DocumentBase {
 
 	/**
 	 * Retrns the content of the Swiss QR Barcodes
-	 * 
-	 * @return
-	 * @throws IOException
-	 * @throws ch.swissqr.content.ch.formats.FormatException
-	 * @throws BarcodeException
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @return a {@link java.util.List} object
 	 */
 	public List<ContentBarcodeCH> getSwissBarcodeContent()
 			throws IOException, ch.swissqr.content.ch.formats.FormatException, BarcodeException {
@@ -171,12 +179,13 @@ public class DocumentBase {
 	
 	/**
 	 * Returns the content of all QR Barcodes
-	 * @return
-	 * @throws IOException
-	 * @throws ch.swissqr.content.ch.formats.FormatException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws BarcodeException 
+	 *
+	 * @throws java.io.IOException
+	 * @throws ch.swissqr.content.ch.formats.FormatException if any.
+	 * @throws java.lang.InstantiationException
+	 * @throws java.lang.IllegalAccessException
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @return a {@link java.util.List} object
 	 */
 	public List<IContent> getBarcodeContent()
 			throws IOException, ch.swissqr.content.ch.formats.FormatException, InstantiationException, IllegalAccessException, BarcodeException {
@@ -185,9 +194,9 @@ public class DocumentBase {
 
 	/**
 	 * Saves the current PDF document to a file
-	 * 
-	 * @param file
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @param file a {@link java.io.File} object
 	 */
 	public void save(File file) throws IOException {
 		document.save(file);
@@ -195,9 +204,9 @@ public class DocumentBase {
 
 	/**
 	 * Saves the current PDF document to a output stream
-	 * 
-	 * @param os
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @param os a {@link java.io.OutputStream} object
 	 */
 	public void write(OutputStream os) throws IOException {
 		document.save(os);
@@ -205,10 +214,10 @@ public class DocumentBase {
 
 	/**
 	 * Writes the image to the indicated output stream
-	 * 
-	 * @param format
-	 * @param outputStream
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @param outputStream a {@link java.io.OutputStream} object
+	 * @param format a {@link java.lang.String} object
 	 */
 	public void write(OutputStream outputStream, String format) throws IOException {
 		PDFRenderer pdfRenderer = new PDFRenderer(this.getDocument());
@@ -218,9 +227,10 @@ public class DocumentBase {
 	
 	/**
 	 * Returns the picture or pdf as byte array
-	 * @param pictureFormat
-	 * @return
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @param pictureFormat a {@link java.lang.String} object
+	 * @return an array of {@link byte} objects
 	 */
 	public byte[] getBytes(String pictureFormat) throws IOException {
 		byte[] result;
@@ -239,8 +249,9 @@ public class DocumentBase {
 
 	/**
 	 * Parse the pdf document and returns the text with the corrsponding positions
-	 * @return
-	 * @throws IOException 
+	 *
+	 * @throws java.io.IOException
+	 * @return a {@link java.util.List} object
 	 */
 	public List<Text> getTextContent() throws IOException {
 		PDFContent content = new PDFContent();
@@ -249,8 +260,9 @@ public class DocumentBase {
 		
 	/**
 	 * Parse the pdf document and returns the content as string
-	 * @return
-	 * @throws IOException 
+	 *
+	 * @throws java.io.IOException
+	 * @return a {@link java.lang.String} object
 	 */
 	public String getText() throws IOException {
 		PDFContent content = new PDFContent();
@@ -259,9 +271,9 @@ public class DocumentBase {
 
 	/**
 	 * Add the doc at the end of the current document
-	 * 
-	 * @param doc
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
+	 * @param doc a {@link org.apache.pdfbox.pdmodel.PDDocument} object
 	 */
 	public void addPDF(PDDocument doc) throws IOException {
 		PDFMergerUtility util = new PDFMergerUtility();
@@ -270,7 +282,8 @@ public class DocumentBase {
 
 	/**
 	 * Releases the pdf document
-	 * @throws IOException
+	 *
+	 * @throws java.io.IOException
 	 */
 	public void close() throws IOException {
 		this.document.close();

@@ -32,9 +32,8 @@ import ch.swissqr.utils.StringUtils;
 
 /**
  * Payment Slip DPF document
- * 
- * @author pschatzmann
  *
+ * @author pschatzmann
  */
 public class PaymentSlipPDF extends DocumentBase {
 	public enum Format {
@@ -45,6 +44,7 @@ public class PaymentSlipPDF extends DocumentBase {
 	private static final float TOP = 95; 
 	private static final float LINEHEIGHT = 3.88f; // 3.53f;
 	private static final float SECTIONMARGIN = 5.0f;
+	/** Constant <code>POINT_TO_MM=0.352778f</code> */
 	public static final float POINT_TO_MM = 0.352778f;
     private static final float POINTS_PER_INCH = 72;
 	private static final float USER_UNIT = 2.83441891578f; // mm to point
@@ -66,17 +66,22 @@ public class PaymentSlipPDF extends DocumentBase {
 	private float cutoffLimitReceipt = 5.3f + 1.8f;
 
 	
+	/**
+	 * <p>Constructor for PaymentSlipPDF.</p>
+	 */
 	public PaymentSlipPDF() {	
 	}
 	
 	/**
 	 * Default constructor
-	 * @param content
-	 * @param requestedLangauge
-	 * @param format
-	 * @param printLines
-	 * @throws BarcodeException
-	 * @throws IOException 
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @param requestedLangauge a {@link java.lang.String} object
+	 * @param format a {@link ch.swissqr.paymentslip.PaymentSlipPDF.Format} object
+	 * @param printLines a boolean
+	 * @param printReceipt a boolean
 	 */
 	public PaymentSlipPDF(ContentBarcodeCH content, String requestedLangauge, Format format, boolean printLines, boolean printReceipt)
 			throws BarcodeException, IOException {
@@ -86,10 +91,11 @@ public class PaymentSlipPDF extends DocumentBase {
 	/**
 	 * Constructor for creating an unformatted payment slip with just prints the relevant content
 	 * w/o left margin and cut off line printing
-	 * @param content
-	 * @param requestedLangauge
-	 * @throws BarcodeException
-	 * @throws IOException 
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @param requestedLangauge a {@link java.lang.String} object
 	 */
 	public PaymentSlipPDF(ContentBarcodeCH content, String requestedLangauge) throws BarcodeException, IOException {
 		this(content,requestedLangauge, Format.A4,true, true);
@@ -97,8 +103,9 @@ public class PaymentSlipPDF extends DocumentBase {
 
 	/**
 	 * Constructor for existing PDDocument
-	 * @param document
-	 * @throws BarcodeException
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @param document a {@link org.apache.pdfbox.pdmodel.PDDocument} object
 	 */
 	public PaymentSlipPDF(PDDocument document) throws BarcodeException {
 		dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
@@ -107,13 +114,15 @@ public class PaymentSlipPDF extends DocumentBase {
 
 	/**
 	 * Prints the payment slip
-	 * @param content
-	 * @param requestedLangauge
-	 * @param format
-	 * @param printLines
-	 * @return 
-	 * @throws BarcodeException
-	 * @throws IOException 
+	 *
+	 * @throws ch.swissqr.errors.BarcodeException
+	 * @throws java.io.IOException
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @param requestedLangauge a {@link java.lang.String} object
+	 * @param format a {@link ch.swissqr.paymentslip.PaymentSlipPDF.Format} object
+	 * @param printLines a boolean
+	 * @param printReceipt a boolean
+	 * @return a {@link org.apache.pdfbox.pdmodel.PDPageContentStream} object
 	 */
 	public PDPageContentStream print(ContentBarcodeCH content, String requestedLangauge, Format format, boolean printLines, boolean printReceipt)
 			throws BarcodeException, IOException {
@@ -198,8 +207,6 @@ public class PaymentSlipPDF extends DocumentBase {
 	/**
 	 * Creates a payment slip PDF document
 	 * 
-	 * @param content
-	 * @return
 	 * @throws Exception
 	 */
 	private PDDocument createPaymentSlip(ContentBarcodeCH content) throws BarcodeException {
@@ -217,6 +224,13 @@ public class PaymentSlipPDF extends DocumentBase {
 		}
 	}
 
+	/**
+	 * <p>createPDFDocument.</p>
+	 *
+	 * @return a {@link org.apache.pdfbox.pdmodel.PDDocument} object
+	 * @throws ch.swissqr.errors.BarcodeException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	public PDDocument createPDFDocument() throws BarcodeException, IOException {
 		PDDocument document = new PDDocument();
 		setDocument(document);
@@ -278,6 +292,12 @@ public class PaymentSlipPDF extends DocumentBase {
 		
 	}
 
+	/**
+	 * <p>getAccountInfo.</p>
+	 *
+	 * @param content a {@link ch.swissqr.content.ContentBarcodeCH} object
+	 * @return a {@link java.util.List} object
+	 */
 	public List<String> getAccountInfo(ContentBarcodeCH content) {
 		List<String> accountLines = new ArrayList();
 		accountLines.add(StringUtils.formatInGroups(4,content.getCreditorInformation().getIban()));
@@ -328,8 +348,6 @@ public class PaymentSlipPDF extends DocumentBase {
 	
 	/**
 	 * Creates the Further information section
-	 * @param content
-	 * @param messages
 	 * @throws IOException
 	 */
 	private void printPaymentSlipButtom(ContentBarcodeCH content, Properties messages) throws IOException {
@@ -356,11 +374,7 @@ public class PaymentSlipPDF extends DocumentBase {
 	
 	/**
 	 * Prints the receipt section
-	 * @param content
-	 * @param requestedLangauge
-	 * @param format
-	 * @param printLines2
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private void createReceipt(ContentBarcodeCH content, String requestedLangauge, Format format) throws IOException {
 		if (this.printReceipt) {
@@ -543,10 +557,6 @@ public class PaymentSlipPDF extends DocumentBase {
 
 	/**
 	 * Prints the information on one line
-	 * @param title
-	 * @param content
-	 * @param x
-	 * @param y
 	 * @throws IOException
 	 */
 	private void printFurtherInformationLine(String title, String content, int x, int y) throws IOException {
@@ -565,62 +575,124 @@ public class PaymentSlipPDF extends DocumentBase {
 
 	/**
 	 * Returns a ',' delimiter if the expression is true
-	 * 
-	 * @param b
-	 * @return
 	 */
 	private String delim(boolean b) {
 		return b ? "," : "";
 	}
 	
+	/**
+	 * <p>getPDPageContentStream.</p>
+	 *
+	 * @return a {@link org.apache.pdfbox.pdmodel.PDPageContentStream} object
+	 */
 	public PDPageContentStream getPDPageContentStream() {
 		return this.contentStream;
 	}
 
+	/**
+	 * <p>isAutoClose.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isAutoClose() {
 		return autoClose;
 	}
 
+	/**
+	 * <p>Setter for the field <code>autoClose</code>.</p>
+	 *
+	 * @param autoClose a boolean
+	 */
 	public void setAutoClose(boolean autoClose) {
 		this.autoClose = autoClose;
 	}
 
+	/**
+	 * <p>isPrintReceipt.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isPrintReceipt() {
 		return printReceipt;
 	}
 
+	/**
+	 * <p>Setter for the field <code>printReceipt</code>.</p>
+	 *
+	 * @param printReceipt a boolean
+	 */
 	public void setPrintReceipt(boolean printReceipt) {
 		this.printReceipt = printReceipt;
 	}
 
+	/**
+	 * <p>Getter for the field <code>cutoffLimit</code>.</p>
+	 *
+	 * @return a float
+	 */
 	public float getCutoffLimit() {
 		return cutoffLimit;
 	}
 
+	/**
+	 * <p>Setter for the field <code>cutoffLimit</code>.</p>
+	 *
+	 * @param cutoffLimit a float
+	 */
 	public void setCutoffLimit(float cutoffLimit) {
 		this.cutoffLimit = cutoffLimit;
 	}
 
+	/**
+	 * <p>Getter for the field <code>cutoffLimitInformation</code>.</p>
+	 *
+	 * @return a float
+	 */
 	public float getCutoffLimitInformation() {
 		return cutoffLimitInformation;
 	}
 
+	/**
+	 * <p>Setter for the field <code>cutoffLimitInformation</code>.</p>
+	 *
+	 * @param cutoffLimitInformation a float
+	 */
 	public void setCutoffLimitInformation(float cutoffLimitInformation) {
 		this.cutoffLimitInformation = cutoffLimitInformation;
 	}
 
+	/**
+	 * <p>Getter for the field <code>cutoffLimitButtom</code>.</p>
+	 *
+	 * @return a float
+	 */
 	public float getCutoffLimitButtom() {
 		return cutoffLimitButtom;
 	}
 
+	/**
+	 * <p>Setter for the field <code>cutoffLimitButtom</code>.</p>
+	 *
+	 * @param cutoffLimitButton a float
+	 */
 	public void setCutoffLimitButtom(float cutoffLimitButton) {
 		this.cutoffLimitButtom = cutoffLimitButton;
 	}
 
+	/**
+	 * <p>Getter for the field <code>cutoffLimitReceipt</code>.</p>
+	 *
+	 * @return a float
+	 */
 	public float getCutoffLimitReceipt() {
 		return cutoffLimitReceipt;
 	}
 
+	/**
+	 * <p>Setter for the field <code>cutoffLimitReceipt</code>.</p>
+	 *
+	 * @param cutoffLimitReceipt a float
+	 */
 	public void setCutoffLimitReceipt(float cutoffLimitReceipt) {
 		this.cutoffLimitReceipt = cutoffLimitReceipt;
 	}
