@@ -6,7 +6,7 @@
 	<name>swissqr</name>
 	<groupId>ch.swiss-qr</groupId>
 	<artifactId>swissqr</artifactId>
-	<version>1.07-SNAPSHOT</version>
+	<version>1.07</version>  <!-- or -SNAPSHOT -->
 	<packaging>jar</packaging>
 
 	<properties>
