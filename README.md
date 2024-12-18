@@ -13,7 +13,7 @@ We have tested access with different programming languages ​​and documented 
 
 ### Documentation
 
-- [User Documentation](https://github.com/swissqr/swissqr/wiki)
+- User Documentation ([German](https://github.com/swissqr/swissqr/wiki), [English](https://github-com.translate.goog/swissqr/swissqr/wiki?_x_tr_sl=de&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp), [French](https://github-com.translate.goog/swissqr/swissqr/wiki?_x_tr_sl=de&_x_tr_tl=fr&_x_tr_hl=en&_x_tr_pto=wapp), [Italian](https://github-com.translate.goog/swissqr/swissqr/wiki?_x_tr_sl=de&_x_tr_tl=it&_x_tr_hl=en&_x_tr_pto=wapp))
 - [Java API](https://swissqr.github.io/swissqr/doc/apidocs/index.html)
 - [Webservice](https://swissqr.ch/docs/)
 - [Dockerhub](https://hub.docker.com/r/swissqr/swissqr)
