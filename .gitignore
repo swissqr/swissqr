@@ -5,3 +5,4 @@ target/
 .vscode/
 .DS_Store
 src/test/resources/generated/
+docker/swissqr*
