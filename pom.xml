@@ -196,15 +196,11 @@
 
 	</dependencies>
 
-
 	<distributionManagement>
 		<repository>
-			<id>release</id>
+			<id>github</id>
+			<name>GitHub swissqr Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/swissqr/swissqr</url>
 		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>https://maven.pkg.github.com/swissqr/swissqr</url>
-		</snapshotRepository>
 	</distributionManagement>
 </project>
