@@ -6,3 +6,5 @@ services:
       ports:
         - "9990:9990"
       restart: always
+      environment:
+        - JAVA_TOOL_OPTIONS=-Xmx900m
