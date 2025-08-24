@@ -7,4 +7,4 @@ services:
         - "9990:9990"
       restart: always
       environment:
-        - JAVA_TOOL_OPTIONS=-Xmx900m
+        - JAVA_TOOL_OPTIONS=-Xmx900m -XX:+ExitOnOutOfMemoryError
